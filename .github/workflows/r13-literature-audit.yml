@@ -1,0 +1,11 @@
+name: R13 Literature Structural Audit
+on:
+  workflow_dispatch:
+  push:
+    paths: ['experiments/triggers/r13-audit.trigger']
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/validate_r13_literature.py
