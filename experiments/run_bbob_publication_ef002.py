@@ -32,20 +32,20 @@ def main():
    for seed in seeds:
     s,o,p=getp(f,i);rng=random.Random(seed);r=ObjectiveRecorder(p,CPS);t=time.perf_counter()
     while r.evaluations<MAX:r([rng.uniform(-5,5) for _ in range(D)])
-    finish("RandomSearch",f,i,seed,p,r,t,"BUDGET_EXHAUSTED");p.free();o.free();s.free()
+    finish("RandomSearch",f,i,seed,p,r,t,"BUDGET_EXHAUSTED");p.free();s.free()
     s,o,p=getp(f,i);r=ObjectiveRecorder(p,CPS);t=time.perf_counter();pop=10*D;mi=max(0,MAX//pop-1)
     differential_evolution(r,[(-5,5)]*D,strategy="best1bin",popsize=10,mutation=.5,recombination=.9,seed=seed,polish=False,maxiter=mi,tol=0,atol=0,workers=1,updating="immediate")
-    finish("SciPy-DE",f,i,seed,p,r,t,"COMPLETED_LIBRARY_RUN");p.free();o.free();s.free()
+    finish("SciPy-DE",f,i,seed,p,r,t,"COMPLETED_LIBRARY_RUN");p.free();s.free()
     s,o,p=getp(f,i);r=ObjectiveRecorder(p,CPS);t=time.perf_counter()
     es=cma.CMAEvolutionStrategy([3.0]*D,2.0,{"seed":seed,"bounds":[-5,5],"verbose":-9,"verb_disp":0,"popsize":10,"maxfevals":MAX,"tolfun":0,"tolfunhist":0,"tolx":0,"tolstagnation":0})
     while r.evaluations<MAX:
      xs=es.ask()[:MAX-r.evaluations]
      if not xs:break
      es.tell(xs,[r(x) for x in xs])
-    finish("pycma-CMAES",f,i,seed,p,r,t,"BUDGET_EXHAUSTED" if r.evaluations==MAX else "NATIVE_TERMINATION");p.free();o.free();s.free()
+    finish("pycma-CMAES",f,i,seed,p,r,t,"BUDGET_EXHAUSTED" if r.evaluations==MAX else "NATIVE_TERMINATION");p.free();s.free()
    s,o,p=getp(f,i);r=ObjectiveRecorder(p,CPS);t=time.perf_counter()
    minimize(r,np.zeros(D)+3,method="Nelder-Mead",bounds=[(-5,5)]*D,options={"maxfev":MAX,"xatol":0.0,"fatol":0.0,"adaptive":False})
-   finish("SciPy-NelderMead",f,i,"NA",p,r,t,"BUDGET_EXHAUSTED" if r.evaluations==MAX else "NATIVE_TERMINATION");p.free();o.free();s.free()
+   finish("SciPy-NelderMead",f,i,"NA",p,r,t,"BUDGET_EXHAUSTED" if r.evaluations==MAX else "NATIVE_TERMINATION");p.free();s.free()
  cols=["run_label","experiment_id","freeze_id","algorithm","function_id","dimension","instance","seed","checkpoint","checkpoint_observed","best_at_checkpoint","final_recorder_evals","final_coco_evals","runtime_seconds","problem_id","coco_final_target_hit","termination_status","run_status","paper_evidence"]
  raw=outdir/"checkpoints.csv"
  with raw.open("w",newline="",encoding="utf-8") as fh:w=csv.writer(fh);w.writerow(cols);w.writerows(rows)
