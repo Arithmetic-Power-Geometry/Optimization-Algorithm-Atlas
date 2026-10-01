@@ -34,6 +34,10 @@ jobs:
           python-version: "3.12"
       - name: Validate evidence ledgers
         run: python scripts/validate_registry.py
+      - name: Validate publication matrix
+        run: |
+          python scripts/validate_publication_matrix.py
+          python scripts/build_experiment_readiness.py
       - name: Validate Apache license
         run: python scripts/validate_license.py
       - name: Run pre-publication pilot
@@ -70,6 +74,7 @@ jobs:
         run: python scripts/build_publication_dashboard.py
       - name: Show generated artifacts
         run: |
+          cat artifacts/tables/experiment_readiness.md
           cat artifacts/validation/pilot_summary.md
           cat artifacts/validation/calibration_summary.md
           cat artifacts/tables/pre_paper_dashboard.md
@@ -85,6 +90,7 @@ jobs:
         with:
           name: phase1-evidence-audit
           path: |
+            artifacts/tables/experiment_readiness.md
             artifacts/validation/provenance_manifest.json
             artifacts/validation/pilot_raw.csv
             artifacts/validation/pilot_traces.csv
