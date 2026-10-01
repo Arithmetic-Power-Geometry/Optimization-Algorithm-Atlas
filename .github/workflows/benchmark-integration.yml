@@ -31,6 +31,8 @@ jobs:
         run: python benchmarks/smoke_standard_suites.py
       - name: Run maintained comparator acceptance
         run: python experiments/comparator_acceptance.py
+      - name: Validate maintained comparator acceptance
+        run: python scripts/validate_comparator_acceptance.py
       - name: Run BBOB standard-suite validation
         run: |
           python experiments/validate_bbob_validation.py
