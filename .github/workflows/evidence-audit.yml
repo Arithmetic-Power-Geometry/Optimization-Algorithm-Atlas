@@ -34,6 +34,8 @@ jobs:
           python-version: "3.12"
       - name: Validate evidence ledgers
         run: python scripts/validate_registry.py
+      - name: Validate Apache license
+        run: python scripts/validate_license.py
       - name: Run pre-publication pilot
         run: |
           python experiments/validate_pilot.py
@@ -42,6 +44,8 @@ jobs:
         run: |
           python experiments/validate_calibration.py
           python experiments/summarize_calibration.py
+      - name: Build validation provenance
+        run: python scripts/build_validation_manifest.py
       - name: Validate Streamlit app syntax
         run: python -m py_compile streamlit_app.py app_pages/*.py app_utils/*.py
       - name: Validate pre-paper gate
@@ -81,6 +85,7 @@ jobs:
         with:
           name: phase1-evidence-audit
           path: |
+            artifacts/validation/provenance_manifest.json
             artifacts/validation/pilot_raw.csv
             artifacts/validation/pilot_traces.csv
             artifacts/validation/pilot_summary.md
