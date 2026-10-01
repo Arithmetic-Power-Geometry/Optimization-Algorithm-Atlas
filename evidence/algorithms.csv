@@ -1,0 +1,31 @@
+algorithm_id,canonical_name,family,year,scope_role,agent_id,status
+NM,Nelder-Mead,derivative-free,1965,canonical,agent_nm,pending
+BFGS,BFGS,quasi-Newton,1970,canonical,agent_bfgs,pending
+LBFGS,L-BFGS,quasi-Newton,1989,canonical,agent_lbfgs,pending
+SA,Simulated Annealing,stochastic local search,1983,canonical,agent_sa,pending
+GA,Genetic Algorithm,evolutionary,1975,canonical,agent_ga,pending
+ES,Evolution Strategies,evolutionary,1960s,canonical,agent_es,pending
+CMAES,CMA-ES,evolution strategy,1996,canonical,agent_cmaes,pending
+DE,Differential Evolution,evolutionary,1997,canonical,agent_de,pending
+JADE,JADE,differential evolution,2009,adaptive-DE,agent_jade,pending
+SHADE,SHADE,differential evolution,2013,adaptive-DE,agent_shade,pending
+LSHADE,L-SHADE,differential evolution,2014,adaptive-DE,agent_lshade,pending
+PSO,Particle Swarm Optimization,swarm,1995,canonical,agent_pso,pending
+ACO,Ant Colony Optimization,swarm,1990s,canonical,agent_aco,pending
+ABC,Artificial Bee Colony,swarm,2005,representative,agent_abc,pending
+GWO,Grey Wolf Optimizer,metaheuristic,2014,structural-audit,agent_gwo,pending
+EDA,Estimation of Distribution Algorithms,probabilistic evolutionary,1990s,canonical-family,agent_eda,pending
+CEM,Cross-Entropy Method,probabilistic,1997,canonical,agent_cem,pending
+BO,Bayesian Optimization,surrogate-based,1990s,canonical-family,agent_bo,pending
+DIRECT,DIRECT,deterministic derivative-free,1993,canonical,agent_direct,pending
+COBYLA,COBYLA,constrained derivative-free,1994,canonical,agent_cobyla,pending
+NSGA2,NSGA-II,multiobjective evolutionary,2002,canonical,agent_nsga2,pending
+SPEA2,SPEA2,multiobjective evolutionary,2001,canonical,agent_spea2,pending
+MOEAD,MOEA/D,multiobjective evolutionary,2007,canonical,agent_moead,pending
+NSGA3,NSGA-III,many-objective evolutionary,2014,canonical,agent_nsga3,pending
+CMAESMO,MO-CMA-ES,multiobjective evolution strategy,2000s,representative,agent_mocmaes,pending
+CDE,Constrained Differential Evolution,constrained evolutionary,2000s,representative,agent_cde,pending
+DYNOPT,Dynamic Optimization Methods,dynamic optimization,,family-audit,agent_dynamic,pending
+MIXOPT,Mixed-Variable Optimization Methods,mixed-variable,,family-audit,agent_mixed,pending
+META_BBO,Meta-Black-Box Optimization,learning-assisted,2020s,emerging-family,agent_metabbo,pending
+L2O,Learning to Optimize,learning-assisted,2010s,emerging-family,agent_l2o,pending
