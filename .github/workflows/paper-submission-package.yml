@@ -1,0 +1,40 @@
+name: Paper Submission Package
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'paper/**'
+      - '.github/workflows/paper-submission-package.yml'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install LaTeX
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq texlive-latex-base texlive-latex-extra texlive-fonts-recommended texlive-bibtex-extra
+      - name: Compile IEEE paper
+        working-directory: paper
+        run: |
+          pdflatex -interaction=nonstopmode -halt-on-error main.tex
+          bibtex main
+          pdflatex -interaction=nonstopmode -halt-on-error main.tex
+          pdflatex -interaction=nonstopmode -halt-on-error main.tex
+      - name: Audit unresolved references
+        working-directory: paper
+        run: |
+          if grep -E "undefined references|Citation .* undefined|Reference .* undefined" main.log; then
+            echo "Unresolved citation/reference detected"; exit 1
+          fi
+      - name: Build submission ZIP
+        run: |
+          mkdir -p submission/sections
+          cp paper/main.tex paper/references.bib paper/main.pdf submission/
+          cp paper/sections/*.tex submission/sections/
+          printf '%s\n' "Optimization Algorithm Atlas" "IEEEtran submission package" "Author: Mohammad Amir Khusru Akhtar" "Compile: pdflatex main.tex; bibtex main; pdflatex main.tex; pdflatex main.tex" > submission/README.txt
+          cd submission && zip -r ../Optimization_Algorithm_Atlas_IEEE_Submission.zip .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Optimization-Algorithm-Atlas-IEEE-Submission
+          path: |
+            submission/
+            Optimization_Algorithm_Atlas_IEEE_Submission.zip
