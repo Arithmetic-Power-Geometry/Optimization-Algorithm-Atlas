@@ -4,3 +4,4 @@ Swarm and Evolutionary Computation,secondary,medium,high,medium,"full atlas exte
 Artificial Intelligence Review,secondary,high,very-high,medium-high,"must retain clear AI/computational-intelligence relevance","critical evaluation of optimization algorithms and evidence"
 Information Sciences,secondary,high,medium,high,"survey contributions are a smaller part of journal output","theory-practice evidence synthesis with original computational validation"
 Applied Soft Computing,secondary,medium-high,medium,medium,"application/soft-computing emphasis may underfit classical optimization coverage","soft-computing-centered evidence atlas"
+IEEE Transactions on Evolutionary Computation,conditional_primary,"evolutionary computation; population-based optimization; mechanism behavior","strong if final evidence narrows to EC/population-based mechanisms","cross-paradigm atlas may exceed core scope","use only if strongest validated contribution is EC-centered"
