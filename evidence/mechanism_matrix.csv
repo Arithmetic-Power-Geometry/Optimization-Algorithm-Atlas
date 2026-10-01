@@ -1,0 +1,9 @@
+algorithm_id,population_or_model,primary_information,search_geometry,memory,adaptation,diversity_or_exploration,key_cost_driver,candidate_failure_signal
+DE,population,pairwise population differences,difference vectors,implicit/few,control parameters in variants,population spread,objective evaluations,spread collapse
+JADE,population,current-to-pbest plus archive,difference vectors,archive,adaptive F and CR,archive plus p-best,objective evaluations,archive/population contraction
+SHADE,population,successful parameter history,difference vectors,success-history memory,history-based F and CR,population spread,objective evaluations,history concentration
+LSHADE,population,successful history plus shrinking population,difference vectors,success-history memory,parameters plus population size,shrinking population,objective evaluations,premature diversity loss
+CMAES,population,ranked successful steps,learned covariance geometry,evolution paths and covariance,covariance and step size,distribution variance,covariance update/decomposition,covariance degeneration or overhead crossover
+PSO,population,personal and social bests,velocity-position dynamics,pbest and gbest,inertia/coefficients in variants,swarm dispersion,objective evaluations,velocity/diversity collapse
+GA,population,fitness-ranked inheritance,recombination and mutation,population/elitism,operator rates in variants,genetic diversity,population fitness evaluations,takeover/diversity collapse
+BO,surrogate,posterior plus acquisition,model-induced geometry,dataset/posterior,model/acquisition dependent,posterior uncertainty,surrogate fitting and acquisition,model misspecification or overhead crossover
