@@ -1,0 +1,7 @@
+verification_id,algorithm,role,required_checks,status
+IV001,RandomSearch,reference_baseline,"code hash;sampling domain;seed policy;license",READY
+IV002,Nelder-Mead,classical_direct,"maintained implementation;version;initial simplex policy;bounds behavior;termination;license",PENDING
+IV003,DE,difference_population,"maintained/reference implementation;version;strategy;NP;F;CR;bounds;termination;license",PENDING
+IV004,CMA-ES,adaptive_distribution,"maintained/reference implementation;version;population size;initial sigma;bounds;restart policy;termination;license",PENDING
+IV005,PSO,social_population,"maintained/reference implementation;version;topology;w;c1;c2;velocity/bounds;termination;license",PENDING
+IV006,GA,evolutionary_recombination,"maintained/reference implementation;version;encoding;selection;crossover;mutation;replacement;bounds;license",PENDING
