@@ -21,7 +21,7 @@ def main():
  rows=[]
  def getp(f,i):
   s=cocoex.Suite("bbob","",f"function_indices:{f} dimensions:{D} instance_indices:{i}")
-  obs=cocoex.Observer("bbob",f"result_folder: {observer_dir.as_posix()}")
+  obs=cocoex.Observer("bbob",f"result_folder: {observer_dir.resolve().as_posix()} algorithm_name: EF002")
   p=s[0];p.observe_with(obs);return s,obs,p
  def finish(alg,f,i,seed,p,r,t,status):
   if r.evaluations!=p.evaluations:raise RuntimeError(f"{alg} counter mismatch {r.evaluations}!={p.evaluations}")
