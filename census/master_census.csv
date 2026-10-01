@@ -13,7 +13,7 @@ C011,L-SHADE,LSHADE,E,MAJOR_VARIANT,2014,seeded,success_history_population_reduc
 C012,Particle Swarm Optimization,PSO,F,FOUNDATION,1995,seeded,social_velocity_search,,
 C013,Ant Colony Optimization,ACO,F,FOUNDATION,1990s,seeded,pheromone_constructive_search,,
 C014,Artificial Bee Colony,ABC,F,CANONICAL,2005,seeded,food_source_swarm,,
-C015,Grey Wolf Optimizer,G,GWO,G,REDUNDANCY_AUDIT,2014,seeded,leader_encircling_metaheuristic,,
+C015,Grey Wolf Optimizer,GWO,G,REDUNDANCY_AUDIT,2014,seeded,leader_encircling_metaheuristic,,
 C016,Estimation of Distribution Algorithms,EDA,H,CANONICAL,1990s,seeded,probabilistic_population_model,,
 C017,Cross-Entropy Method,CEM,H,CANONICAL,1997,seeded,elite_distribution_update,,
 C018,Bayesian Optimization,BO,I,FOUNDATION,1990s,seeded,surrogate_acquisition,,
