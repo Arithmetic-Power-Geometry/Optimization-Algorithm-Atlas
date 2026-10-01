@@ -1,0 +1,12 @@
+problem_regime,required_comparator_role,selection_rule
+continuous_black_box,reference_baseline,"include a simple established baseline appropriate to the representation"
+continuous_black_box,mechanism_nearest,"select nearest mechanism from DNA/similarity map"
+continuous_black_box,strong_established,"select established competitive method with evidence in same regime"
+continuous_black_box,recent_relevant,"select recent method only if independently specifiable and regime-relevant"
+continuous_black_box,target_specialist,"include specialist when the gap concerns noise constraints scale or other special regime"
+multiobjective,canonical_pareto_baseline,"include canonical nondominated-sorting baseline"
+multiobjective,decomposition_baseline,"include decomposition-based comparator when geometry/decomposition is relevant"
+many_objective,reference_direction_baseline,"include reference-direction method when objective count is high"
+expensive_black_box,surrogate_baseline,"include established surrogate/BO comparator"
+all,parent_ablation,"if proposing mechanism M compare parent vs parent+M"
+all,cost_control,"report objective evaluations and relevant optimizer overhead separately"
