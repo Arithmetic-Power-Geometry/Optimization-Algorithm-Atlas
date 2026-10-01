@@ -1,0 +1,7 @@
+review_id,year,scope,large_catalogue,mechanism_taxonomy,benchmark_properties,performance_analysis,structural_similarity,structural_bias,reproducibility_status,condition_level_evidence_status,failure_frontiers,resolving_experiment_links,living_machine_readable_atlas
+R2023_EXHAUSTIVE,2023,"~540 metaheuristics; taxonomy applications challenges",yes,partial,partial,no,discussion,partial,no,no,no,no,no
+R2025_BENCHMARK,2025,"benchmark/test functions",no,no,yes,partial,no,no,no,no,no,no,no
+R2025_SB,2025,"structural bias review",partial,partial,partial,no,no,yes,partial,no,no,no,no
+R2026_STRUCTURAL,2026,"145 metaheuristics; 19 structural criteria; clustering",partial,yes,no,no,yes,partial,no,no,no,no,partial
+R2026_FUNCTIONAL,2026,"functional taxonomy plus benchmark-driven performance",partial,yes,yes,yes,partial,partial,partial,no,no,no,no
+OAA_TARGET,2026,"cross-paradigm optimization evidence atlas",planned,yes,yes,yes,yes,yes,yes,yes,yes,yes,yes
