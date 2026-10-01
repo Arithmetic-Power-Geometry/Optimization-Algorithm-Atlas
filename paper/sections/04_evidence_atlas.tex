@@ -1,0 +1,66 @@
+\section{Condition-Level Evidence Atlas}
+\label{sec:evidence-atlas}
+
+\subsection{Evidence is indexed by condition, not by winner}
+
+The atlas is designed to answer a different question from a benchmark leaderboard. For an algorithm \(A\), an empirical statement is indexed by a condition vector \(\theta\) describing the problem, dimension, budget, instance distribution, parameter policy, implementation, and evaluation criterion. Evidence is represented conceptually as
+\begin{equation}
+\mathcal{E}(A,\theta)=\{s,c,p\},
+\label{eq:evidence-state}
+\end{equation}
+where \(s\) is the evidence state, \(c\) its evidential strength, and \(p\) the provenance linking the statement to a source or frozen project artifact. A result obtained under one benchmark regime is therefore not silently generalized to another.
+
+Five states are distinguished: documented, partial, contradictory, untested, and project-validated. Documented evidence directly supports the stated condition. Partial evidence supports only part of the condition or claim. Contradictory evidence records materially different findings requiring further resolution. Untested denotes absence of adequate evidence and is not synonymous with failure. Project-validated is reserved for repository-generated findings that passed the frozen provenance and validation workflow.
+
+\subsection{Canonical provenance and condition-level evidence}
+
+The representative mechanism layer contains 42 source-backed fingerprints linked to 46 verified source records. Provenance for defining mechanisms is therefore denser than evidence about the conditions under which particular limitations appear. A well-established algorithmic definition does not imply that its scaling, robustness, failure transitions, parameter sensitivity, or computational overhead have been comprehensively mapped.
+
+The condition-level status matrix illustrates this distinction. High-dimensional simplex dynamics for Nelder--Mead and nonconvex curvature behavior for BFGS are represented as partial evidence rather than universal failure claims. The nonsmooth-objective limitation associated with L-BFGS is documented within known classes, while extension beyond those classes remains a mapping problem. Simulated annealing retains a partial finite-budget cooling question, and premature pheromone concentration in ant-colony optimization remains a partial mechanism-level concern requiring controlled study.
+
+The multiobjective records follow the same discipline. Many-objective crowding behavior for NSGA-II is documented at the mechanism level, while a controlled diagnostic geometry map remains useful. Evidence concerning difficult Pareto-front geometries for MOEA/D and NSGA-III remains partial. Each status therefore applies to a mechanism--condition pair, not to an algorithm as a whole.
+
+\subsection{Absence of evidence is explicit}
+
+The census covers a broader space than the condition-level status matrix. Dynamic, mixed-variable, bilevel, learning-assisted, robust, stochastic, constrained, and combinatorial optimization remain unevenly characterized. Many algorithm--condition combinations have canonical definitions but no project-validated failure map. This asymmetry is retained rather than filled by inference.
+
+The distinction between untested and failed is fundamental. If controlled evidence is unavailable for an algorithm under a condition, the atlas records an evidence obligation rather than a negative performance judgment. A missing study can establish an evidence gap; it cannot by itself establish a mechanistic defect.
+
+\subsection{Benchmark coverage is part of the evidence statement}
+
+Benchmark suites are treated as measurement instruments with coverage limits. The publication experiment uses noiseless COCO BBOB as a controlled continuous black-box domain. Function identity, dimension, instance, and evaluation budget are retained rather than pooled away. Property-conditioned synthesis is permitted only when an authoritative mapping supports the grouping and within-group evidence is sufficient.
+
+Noisy and discrete domains remain separate. COCO BBOB-noisy and IOH pseudo-Boolean optimization appear in the suite registry as distinct evidence domains, but registry or adapter availability does not promote them into the present project-validated publication evidence. Local Sphere, Rastrigin, and Rosenbrock problems are calibration instruments and are excluded from publication evidence unless separately promoted. Dimension and budget are scientific axes, not nuisance metadata; a method is therefore not summarized by one unconditional rank across \(D\) and FE/D conditions.
+
+\subsection{Reproducibility as an evidence dimension}
+
+Reproducibility is not inferred from an algorithm name or canonical paper. The reproducibility registry separates definition availability, pseudocode or specification, reference implementation, independent implementation, parameter disclosure, random-seed disclosure, benchmark version, environment disclosure, and rerun status. Fields that remain pending are not converted into positive reproducibility scores.
+
+The project-generated BBOB evidence follows an executable provenance path. Software versions, configurations, suite, instances, seeds, budgets, target semantics, objective-call accounting, and interpretation rules were frozen before promotion. COCO logging provides target-runtime authority, while an independent objective recorder provides exact objective-call and checkpoint accounting. The counters were cross-checked before publication use. Reproducibility is thus treated as a property of an evidence-producing workflow rather than a reputation attached to an algorithm.
+
+\subsection{Structural similarity does not transfer evidence}
+
+Mechanism fingerprints identify structural proximity, but empirical evidence is not automatically transferred between neighboring algorithms. The DE lineage shares differential variation, yet jDE, SaDE, JADE, SHADE, and L-SHADE modify parameter adaptation, strategy control, archives, success-history memory, or population-size schedules. Evidence of a limitation in one member can motivate a hypothesis about another, but cannot establish the same failure regime.
+
+The restriction also applies across broader classes. Distribution-based search links CMA-ES, natural evolution strategies, EDAs, and the cross-entropy method, but their update geometry and assumptions differ. Surrogate methods share a model layer, yet Gaussian-process Bayesian optimization, TPE, SMAC, and TuRBO encode different response assumptions and search locality. Structural similarity therefore generates comparisons and evidence obligations; it does not manufacture missing empirical results.
+
+\subsection{Negative and contradictory evidence}
+
+Negative evidence is retained without converting it into a universal judgment. Reports of premature convergence or exploration--exploitation limitations in success-history DE variants, for example, motivate condition-specific questions about diversity and adaptation but do not establish a defect across the entire DE lineage.
+
+Contradictory findings are treated as unresolved conditional evidence. Differences in benchmark distribution, implementation, tuning, evaluation budget, stopping rule, or statistical unit can produce disagreement without implying that one study is invalid. The atlas records the unresolved condition and the minimal experiment needed to distinguish explanations. Contradiction thereby becomes a research object rather than a reason to select the result supporting a preferred narrative.
+
+\subsection{From gaps to resolving experiments}
+
+An evidence gap is promoted only when it can be stated operationally: what is known, what is missing, why the missing evidence matters, the strongest provenance, a testable hypothesis, and a minimal resolving experiment. The resulting discipline is
+\begin{equation}
+\text{missing evidence}\;\not\Rightarrow\;\text{mechanism failure}\;\not\Rightarrow\;\text{new optimizer}.
+\label{eq:gap-discipline}
+\end{equation}
+Missing evidence first creates an evidence obligation. A controlled experiment may establish a condition-level limitation. Only a reproduced limitation with an independently supported mechanism explanation can motivate a repair hypothesis. The frozen project did not reach that final repair threshold, so no result-driven optimizer is introduced.
+
+\subsection{Project-generated characterization}
+
+The project experiments complement the literature atlas with a standardized continuous black-box characterization under one frozen protocol. They do not replace the heterogeneous literature and do not establish a universal ordering. Random Search, SciPy differential evolution, bounded SciPy Nelder--Mead, and pycma CMA-ES are evaluated on matched BBOB conditions under normalized objective-evaluation budgets. Discovery instances 1--5 and held-out instances 6--10 are separated.
+
+Because the exact numerical reliability threshold and target subset required for a confirmatory binary failure frontier were not frozen before the held-out campaign, the project evidence is used as condition-level characterization rather than as a post hoc exact boundary. The strength of a claim is determined not only by observed data, but also by whether the decision rule supporting that claim was specified before the relevant evidence was examined.
