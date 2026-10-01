@@ -1,0 +1,34 @@
+name: PUB-D2 Analysis
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'experiments/triggers/pub-d2-analysis.trigger'
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: pub-d2-merge.yml
+          name: PUB-D2-MERGED-EF001
+          path: _merged
+      - name: Stage merged evidence
+        run: |
+          mkdir -p artifacts/publication/PUB-D2
+          find _merged -name PUB-D2_merged_raw.csv -exec cp {} artifacts/publication/PUB-D2/ \;
+          find _merged -name PUB-D2_merged_provenance.json -exec cp {} artifacts/publication/PUB-D2/ \;
+      - name: Revalidate and summarize
+        run: |
+          python experiments/validate_pub_d2_merged.py
+          python experiments/summarize_pub_d2.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PUB-D2-DESCRIPTIVE-EF001
+          path: |
+            artifacts/publication/PUB-D2/PUB-D2_function_checkpoint_summary.csv
+            artifacts/publication/PUB-D2/PUB-D2_runtime_summary.csv
+            artifacts/publication/PUB-D2/PUB-D2_termination_summary.csv
