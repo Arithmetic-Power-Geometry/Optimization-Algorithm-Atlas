@@ -33,6 +33,10 @@ jobs:
         run: python experiments/comparator_acceptance.py
       - name: Validate maintained comparator acceptance
         run: python scripts/validate_comparator_acceptance.py
+      - name: Run frozen DRY-D2 shard
+        run: |
+          python experiments/run_dry_d2_shard.py
+          python experiments/validate_dry_d2_shard.py
       - name: Run publication engine rehearsal
         run: |
           python experiments/run_publication_engine_rehearsal.py
@@ -66,6 +70,8 @@ jobs:
             artifacts/validation/anytime_engine_smoke_provenance.json
             artifacts/validation/publication_engine_rehearsal.csv
             artifacts/validation/publication_engine_rehearsal_provenance.json
+            artifacts/validation/dry_d2_raw.csv
+            artifacts/validation/dry_d2_provenance.json
             artifacts/validation/standard_suite_smoke.json
             artifacts/validation/bbob_validation_raw.csv
             artifacts/validation/bbob_validation_summary.md
