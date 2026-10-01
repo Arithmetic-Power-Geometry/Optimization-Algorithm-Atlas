@@ -1,0 +1,4 @@
+implementation_id,algorithm,role,source_type,version_or_commit,parameter_policy,boundary_policy,randomness_policy,publication_status,notes
+IMP-RS-001,RandomSearch,reference_baseline,internal_reference,v1,"uniform sampling","sample within bounds","explicit seeded PRNG",PILOT_ONLY,"sanity/reference baseline"
+IMP-DE-001,DE,canonical_baseline,internal_reference,v1,"NP=20 F=0.5 CR=0.9","clip mutant coordinates","explicit seeded PRNG",PILOT_ONLY,"publication experiment will use pinned external/reference implementation or independently verified equivalent"
+IMP-PSO-001,PSO,canonical_baseline,internal_reference,v2,"NP=20 w=0.7298 c1=c2=1.49618","clip positions","explicit seeded PRNG",PILOT_ONLY,"hidden objective recomputation removed"
