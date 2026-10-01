@@ -1,0 +1,36 @@
+name: PUB-D2 B03
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'experiments/run_pub_d2_b03.py'
+      - 'experiments/validate_pub_d2_b03.py'
+      - 'experiments/triggers/pub-d2-b03.trigger'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install frozen stack
+        run: pip install -r requirements-benchmarks.txt
+      - name: Validate EF001
+        run: python scripts/validate_execution_freeze.py
+      - name: Capture environment
+        run: python scripts/capture_environment.py
+      - name: Execute publication batch B03
+        run: python experiments/run_pub_d2_b03.py
+      - name: Validate raw integrity
+        run: python experiments/validate_pub_d2_b03.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PUB-D2-B03-EF001
+          path: |
+            artifacts/publication/PUB-D2/D2-B03_raw.csv
+            artifacts/publication/PUB-D2/D2-B03_provenance.json
+            artifacts/validation/environment.json
