@@ -6,7 +6,7 @@ R04,EF002 production runner with observer,PASS
 R05,EF002 dry rehearsal and validation,PASS
 R06,PUB-D5 execute merge compare,PASS
 R07,PUB-D10 execute merge compare,PASS
-R08,PUB-D20 execute merge compare,TODO
+R08,PUB-D20 execute merge compare,PASS
 R09,PUB-D40 execute merge compare,TODO
 R10,Cross-dimensional target ECDF scaling analysis,TODO
 R11,Failure-frontier discovery plus held-out confirmation,TODO
