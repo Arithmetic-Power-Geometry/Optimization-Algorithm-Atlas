@@ -1,0 +1,2 @@
+experiment_id,status,suite,functions,dimensions,instances,seeds,budget_multipliers,algorithms,primary_analysis,paper_evidence
+PUBBBOB001,PREDECLARED_NOT_RUN,BBOB,"1-24","2;5;10;20;40","1;2;3;4;5","11;23;37","100;300;1000","RandomSearch;SciPy-DE;SciPy-NelderMead;pycma-CMAES","target attainment; evaluations-to-target; ECDF/anytime; paired contrasts",NO_UNTIL_PROMOTED
