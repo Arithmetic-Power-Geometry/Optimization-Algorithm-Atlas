@@ -1,0 +1,6 @@
+matrix_id,question,suite,property_axis,dimensions,budget_rule,algorithm_roles,status
+PUB-CONT-01,"How do representative mechanisms scale across continuous landscape classes?","BBOB","function_group × dimension","2;5;10;20;40","dimension-scaled evaluations","reference;local/direct;DE;CMA-ES;PSO;GA/evolutionary",PLANNED
+PUB-BUDGET-01,"Where do mechanism rankings/target attainment change with evaluation budget?","BBOB","budget","5;10;20","multiple frozen budget levels","reference;DE;CMA-ES;PSO",PLANNED
+PUB-NOISE-01,"How do selected mechanisms degrade under controlled noise?","BBOB_NOISY","noise regime × dimension","5;10;20","frozen suite budget","DE;CMA-ES;PSO;surrogate-if-compatible",PLANNED
+PUB-DISC-01,"How do representative discrete mechanisms behave across pseudo-Boolean properties?","IOH_PBO","problem class × dimension","suite-defined selected dimensions","dimension-scaled evaluations","random/reference;local;population-based",PLANNED
+PUB-FRONTIER-01,"Where does each mechanism cross a predeclared success criterion?","BBOB","dimension × function group × budget","selected after baseline integrity run","predeclared target-based","canonical representatives",PLANNED
