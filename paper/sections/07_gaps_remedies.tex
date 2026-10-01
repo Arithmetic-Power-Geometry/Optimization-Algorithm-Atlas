@@ -1,0 +1,40 @@
+\section{Validated Gaps, Existing Remedies, and Evidence Obligations}
+\label{sec:gaps}
+
+\subsection{A gap is not automatically a discovery}
+
+Optimization papers frequently use the term gap for very different situations: an algorithm has not been tested on a problem class, two studies disagree, a limitation is observed under one condition, or an existing mechanism appears unable to repair a reproduced failure. These situations require different evidential responses. The atlas therefore treats gap strength as an ordered validation problem rather than a binary label.
+
+At the weakest level, a topic may simply be mentioned as underexplored. Stronger evidence can establish an absence of controlled study, a contradiction between comparable studies, or a reproducible condition-dependent limitation. A mechanism-level gap requires an additional step: evidence that the limitation is plausibly connected to a particular computational mechanism rather than to tuning, implementation, budget, or benchmark selection. A repair opportunity is stronger still because it requires reason to believe that an existing remedy is insufficient and that a specific intervention can address the implicated mechanism.
+
+\subsection{Current evidence obligations}
+
+The frozen status matrix identifies several bounded evidence obligations. For Nelder--Mead, the unresolved question concerns dimension and simplex geometry rather than a universal claim that the method fails in high dimension. For BFGS, nonconvex curvature behavior should be separated across globalization and damping regimes. For L-BFGS, documented nonsmooth limitations motivate controlled extension beyond known counterexample classes rather than rediscovery of the existing limitation.
+
+For simulated annealing, the unresolved finite-budget question couples barrier structure, dimension, and cooling policy. For ant-colony optimization, reports of premature pheromone concentration motivate a state-indicator and remedy audit. In multiobjective optimization, NSGA-II motivates diagnostic mapping of crowding behavior as the number of objectives and front geometry change, whereas MOEA/D and NSGA-III motivate controlled studies of decomposition and reference-direction behavior on difficult Pareto-front geometries.
+
+These entries are not ranked by importance. They illustrate how a broad limitation statement can be converted into a condition-indexed experiment that could either strengthen, weaken, or refine the claim.
+
+\subsection{Existing remedies must be tested before novelty is claimed}
+
+A limitation does not justify a new optimizer if an established mechanism already addresses it. Restart and multistart strategies can alter stagnation behavior. Adaptive parameter control can modify fixed-control failure regimes. Population-size schedules can change the exploration budget. Archives and diversity mechanisms can preserve alternative search information. Trust regions can localize model-based search. Constraint-handling rules can replace poorly scaled penalty formulations. Decomposition, reference directions, indicators, and archive truncation can alter multiobjective selection geometry.
+
+The relevant scientific question is therefore not whether a new operator can be invented, but whether the observed failure persists after credible existing remedies are considered. A proposed mechanism should identify which state variable, information source, proposal geometry, memory rule, selection rule, adaptation process, or constraint model it changes and why that change addresses the reproduced limitation.
+
+\subsection{Why no new optimizer is introduced here}
+
+The project completed a frozen discovery campaign and an independent held-out characterization. However, the exact numerical target subset and reliability threshold required for a confirmatory binary frontier were not frozen before the held-out campaign. The project therefore does not elevate observed deterioration into a post hoc exact frontier.
+
+Without a confirmed frontier, an independently supported mechanism explanation, and a comparison against established remedies, a new optimizer or repair operator would be result-driven. R12 was consequently closed as \texttt{NOT\_WARRANTED}. This is not a negative result for the atlas. It demonstrates that the same framework used to identify research opportunities can also reject premature novelty.
+
+\subsection{Minimal standard for a future repair claim}
+
+A future mechanism-repair study can proceed from the atlas if it satisfies five requirements. First, the failure event and threshold must be frozen before confirmation. Second, discovery and confirmation conditions must be disjoint. Third, the implicated mechanism must have evidence independent of the performance transition itself. Fourth, credible existing remedies must be included as comparators or ablations. Fifth, the intervention should be tested as a transferable mechanism where compatible, for example by comparing \(A\) with \(A+M\) across more than one unrelated algorithm rather than introducing only a new named optimizer.
+
+This design would distinguish a genuine mechanism contribution from retuning. It would also permit competing explanations to be tested directly. Only after such evidence should a general mechanism claim be considered.
+
+\subsection{Evidence obligations as a research frontier}
+
+The atlas therefore reframes part of the optimization research frontier as a set of evidence obligations. Some obligations concern missing benchmark domains, some concern unresolved mechanism--condition relations, some concern contradictory studies, and others concern reproducibility or computational cost. Their common feature is that each can be associated with a minimal resolving action.
+
+This view is deliberately more conservative than a list of open problems. An open problem may be intellectually interesting but underspecified empirically. An evidence obligation identifies what observation is missing and what would change the current evidence state. In this sense, the atlas is intended not only to summarize optimization research, but also to expose where additional evidence would be maximally informative.
