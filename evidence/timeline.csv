@@ -1,0 +1,9 @@
+period,milestone,mechanism_shift,atlas_significance
+1940s-1960s,Mathematical and direct-search foundations,"formal optimization; simplex/direct search; early stochastic ideas","separates guarantee-driven and heuristic search traditions"
+1970s,Quasi-Newton and genetic-search maturation,"curvature approximation; population inheritance","introduces learned local geometry and population variation"
+1980s,Simulated annealing,"temperature-controlled stochastic acceptance","formalizes exploration through controlled uphill movement"
+1990s,PSO ACO DE CMA-ES and Bayesian/global-search maturation,"social memory; pheromone reinforcement; differential variation; covariance learning; surrogate-guided sampling","multiple distinct information-use mechanisms emerge"
+2000s,Modern multiobjective evolutionary optimization,"elitist sorting; decomposition; Pareto diversity","optimization target expands from point solutions to structured tradeoff sets"
+2010s,Adaptive parameter control and many-objective methods,"success-history; population-size adaptation; reference directions; hybridization","adaptation becomes part of algorithm state"
+2020s,Learning-assisted and high-dimensional specialized optimization,"learned optimizers; surrogate structure; state-aware adaptation; extensive hybrids","mechanism complexity and reproducibility become central"
+2025-2026,Critical structural and benchmark audits,"structural similarity; structural bias; benchmark-property analysis; longitudinal competition analysis","field increasingly questions names rankings and benchmark-induced conclusions"
