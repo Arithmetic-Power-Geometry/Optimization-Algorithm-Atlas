@@ -1,0 +1,13 @@
+name: R15 Pre-Freeze Audit
+on:
+  workflow_dispatch:
+  push:
+    paths: ['experiments/triggers/r15-prefreeze.trigger']
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/validate_execution_freeze.py
+      - run: python scripts/validate_r13_literature.py
+      - run: python scripts/validate_r15_prefreeze.py
