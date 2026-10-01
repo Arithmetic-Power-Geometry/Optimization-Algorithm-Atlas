@@ -1,0 +1,2 @@
+experiment_id,status,algorithms,functions,dimensions,budget_evals,seeds,purpose,publication_use
+CAL001,CALIBRATION_ONLY,"RandomSearch;DE;PSO","Sphere;Rastrigin;Rosenbrock","2;10",2000,"11;23;37;53;71","validate deterministic runner equal evaluation budgets raw-result schema and summaries","NO"
