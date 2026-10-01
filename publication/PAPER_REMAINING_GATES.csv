@@ -4,9 +4,9 @@ R02,Pinned COCO public metadata probe,PASS
 R03,COCO observer target-authority boundary,FROZEN
 R04,EF002 production runner with observer,PASS
 R05,EF002 dry rehearsal and validation,PASS
-R06,PUB-D5 execute merge compare,REOPENED_EF003_PROVENANCE
+R06,PUB-D5 execute merge compare,PASS_EF003
 R07,PUB-D10 execute merge compare,PASS_EF003
-R08,PUB-D20 execute merge compare,REOPENED_EF003_PROVENANCE
+R08,PUB-D20 execute merge compare,PASS_EF003
 R09,PUB-D40 execute merge compare,REOPENED_EF003_PROVENANCE
 R10,Cross-dimensional target ECDF scaling analysis,TODO
 R11,Failure-frontier discovery plus held-out confirmation,TODO
