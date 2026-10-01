@@ -1,0 +1,19 @@
+gate_id,description,status
+R01,Integrated target recorder count/first-hit invariant,PASS
+R02,Pinned COCO public metadata probe,PASS
+R03,COCO observer target-authority boundary,FROZEN
+R04,EF002 production runner with observer,TODO
+R05,EF002 dry rehearsal and validation,TODO
+R06,PUB-D5 execute merge compare,TODO
+R07,PUB-D10 execute merge compare,TODO
+R08,PUB-D20 execute merge compare,TODO
+R09,PUB-D40 execute merge compare,TODO
+R10,Cross-dimensional target ECDF scaling analysis,TODO
+R11,Failure-frontier discovery plus held-out confirmation,TODO
+R12,Mechanism-remedy ablations if warranted,TODO
+R13,Literature evidence/fingerprint/source-ledger completion,TODO
+R14,App benchmark similarity reproducibility decision pages,TODO
+R15,Final statistics figures tables references clean replay,TODO
+R16,P031 evidence freeze release,TODO
+R17,Paper drafting in frozen official venue template,TODO
+R18,Line-by-line submission audit and final package,TODO
