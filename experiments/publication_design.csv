@@ -1,0 +1,5 @@
+design_id,domain,dimensions,instances_or_blocks,independent_repetitions,budget_levels,primary_endpoint,secondary_endpoints,status
+PD-CONT-01,BBOB_continuous,"2;5;10;20;40","suite instances selected before run","at least 15 matched stochastic repetitions/blocks per reported condition where algorithm randomness applies","multiple dimension-scaled levels","target attainment / evaluations-to-target","best-so-far; anytime ECDF; runtime/overhead",DRAFT_FREEZE
+PD-FRONTIER-01,BBOB_failure_frontier,"selected axis-specific dimensions/conditions","matched instances","initial replication plus predeclared boundary replication","criterion-specific","probability of satisfying declared target within budget","frontier location and uncertainty",DRAFT_FREEZE
+PD-NOISE-01,BBOB_noisy,"5;10;20","frozen noisy instances","matched repeated runs","frozen dimension-scaled levels","target attainment under noise","robustness degradation; runtime",DRAFT_FREEZE
+PD-PBO-01,IOH_PBO,"selected discrete dimensions","frozen problem instances","matched repetitions","dimension-scaled levels","target attainment / evaluations-to-target","anytime behavior; runtime",DRAFT_FREEZE
