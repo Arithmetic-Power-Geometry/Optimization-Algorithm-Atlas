@@ -31,3 +31,12 @@ EF004,FROZEN,experiments/BBOB_TARGET_PROTOCOL.md,b094cd10902db4829b07a120b716ae6
 EF004,FROZEN,experiments/bbob_targets.csv,0e33a58cc56b630ed14b58d8e9219feb8322122c,unchanged target grid
 EF004,FROZEN,experiments/COCO_TARGET_AUTHORITY.md,96d0a51d650f03c8a82911f17ebfaa232cb41aba,unchanged target-authority boundary
 EF004,FROZEN,experiments/EF004_AMENDMENT.md,4b551a6f64b496969bc10b80800213d7d4f8aad0,target-runtime observer amendment rationale
+EF005,FROZEN,experiments/run_r11_confirmation_ef005.py,c59077dffea0008d5712b6bdfa235a5ea1966f99,held-out R11 confirmation stack
+EF005,FROZEN,experiments/objective_recorder.py,1d9691441bab1eb0b45bb4905e53717e66302002,held-out R11 confirmation stack
+EF005,FROZEN,experiments/r11_frontier_freeze.csv,888bc8644f1b6c8802ca16ec156b3559fa250eda,held-out R11 confirmation stack
+EF005,FROZEN,requirements-benchmarks.txt,f2e1d312e56875d030e5df5b458511926434e7ae,held-out R11 confirmation stack
+EF005,FROZEN,experiments/PUBLICATION_STATISTICAL_FREEZE.md,bd990cac72515f75dabdf4b1766b2f3bec907a71,held-out R11 confirmation stack
+EF005,FROZEN,experiments/BBOB_TARGET_PROTOCOL.md,b094cd10902db4829b07a120b716ae650e12b63e,held-out R11 confirmation stack
+EF005,FROZEN,experiments/bbob_targets.csv,0e33a58cc56b630ed14b58d8e9219feb8322122c,held-out R11 confirmation stack
+EF005,FROZEN,experiments/COCO_TARGET_AUTHORITY.md,96d0a51d650f03c8a82911f17ebfaa232cb41aba,held-out R11 confirmation stack
+EF005,FROZEN,experiments/R11_FAILURE_FRONTIER_PROTOCOL.md,6afe4d8c634098b2451a8bd03f8b9f0cfdcb7cdc,held-out R11 confirmation stack
