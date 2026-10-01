@@ -33,6 +33,8 @@ jobs:
         run: python experiments/comparator_acceptance.py
       - name: Validate maintained comparator acceptance
         run: python scripts/validate_comparator_acceptance.py
+      - name: Test recorder COCO invariant
+        run: python experiments/test_recorder_coco_invariant.py
       - name: Test exact objective recorder
         run: python experiments/test_objective_recorder.py
       - name: Run anytime execution-engine smoke
