@@ -33,11 +33,10 @@ jobs:
         run: python scripts/build_gap_atlas.py
       - name: Generate evidence status matrix
         run: python scripts/build_status_artifact.py
-      - name: Show generated artifacts
-        run: |
+      - name: Generate closest-review matrix\n        run: python scripts/build_closest_review_artifact.py\n      - name: Show generated artifacts\n        run: |
           cat artifacts/tables/phase1_registry_summary.md
           cat artifacts/tables/candidate_gap_atlas.md
-          cat artifacts/tables/evidence_status_matrix.md
+          cat artifacts/tables/evidence_status_matrix.md\n          cat artifacts/tables/closest_review_matrix.md
       - name: Upload evidence artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -45,4 +44,4 @@ jobs:
           path: |
             artifacts/tables/phase1_registry_summary.md
             artifacts/tables/candidate_gap_atlas.md
-            artifacts/tables/evidence_status_matrix.md
+            artifacts/tables/evidence_status_matrix.md\n            artifacts/tables/closest_review_matrix.md
