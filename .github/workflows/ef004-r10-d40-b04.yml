@@ -1,0 +1,37 @@
+name: EF004 R10 D40 B04
+on:
+  workflow_dispatch:
+  push:
+    paths: ['experiments/triggers/ef004-r10-d40-b04.trigger']
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install -r requirements-benchmarks.txt cocopp
+      - run: python scripts/validate_execution_freeze.py
+      - run: python experiments/run_bbob_target_ecdf_ef004.py --dimension 40 --functions 19-24 --instances 1,2,3,4,5 --seeds 11,23,37 --label EF004-R10-D40-B04 --mode publication
+      - name: Validate
+        run: |
+          python - <<'PY'
+          import csv,json
+          from pathlib import Path
+          base=Path("artifacts/publication/EF004-R10-D40-B04")
+          r=list(csv.DictReader(open(base/"checkpoints.csv")));q=json.load(open(base/"provenance.json"))
+          assert len(r)==900 and {x["freeze_id"] for x in r}=={"EF004"}
+          assert {x["run_status"] for x in r}=={"RUN_COMPLETE_UNVERIFIED"} and {x["paper_evidence"] for x in r}=={"NO_UNTIL_PROMOTED"}
+          assert all(x["final_recorder_evals"]==x["final_coco_evals"] for x in r)
+          assert len(q["observer_folders"])==4
+          for f in q["observer_folders"]:
+           p=Path("exdata")/f;assert list(p.rglob("*.info")) and list(p.rglob("*.dat"))
+          PY
+      - run: python -m cocopp exdata/EF004-R10-D40-B04_RS_COCO exdata/EF004-R10-D40-B04_DE_COCO exdata/EF004-R10-D40-B04_CMAES_COCO exdata/EF004-R10-D40-B04_NelderMead_COCO
+      - uses: actions/upload-artifact@v4
+        with:
+          name: EF004-R10-D40-B04
+          path: |
+            artifacts/publication/EF004-R10-D40-B04/
+            exdata/EF004-R10-D40-B04_*_COCO/
