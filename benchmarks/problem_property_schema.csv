@@ -1,0 +1,13 @@
+property_id,property,levels_or_measure,why_it_matters
+P01,dimension,"2;10;30;50;100;200;500;1000","reveals scaling transitions"
+P02,modality,"unimodal;multimodal","tests local trapping and exploration"
+P03,separability,"separable;partially-separable;nonseparable","tests variable-interaction handling"
+P04,rotation,"unrotated;rotated","breaks coordinate-aligned advantages"
+P05,conditioning,"low;medium;high","tests geometry/scale adaptation"
+P06,noise,"none;Gaussian;heavy-tailed;heteroscedastic","tests robustness of selection/model updates"
+P07,constraints,"none;low-density;high-density","tests feasibility handling"
+P08,dynamics,"static;slow-change;abrupt-change","tests memory/adaptation under nonstationarity"
+P09,intrinsic_dimension,"low;medium;ambient","critical for surrogate/high-dimensional BO assumptions"
+P10,evaluation_cost,"cheap;moderate;expensive","changes whether optimizer overhead is consequential"
+P11,budget,"tight;medium;large","tests anytime behavior and convergence claims"
+P12,initialization,"uniform;clustered;biased","tests initialization sensitivity"
