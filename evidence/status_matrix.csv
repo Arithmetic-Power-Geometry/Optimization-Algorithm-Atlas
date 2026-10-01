@@ -1,0 +1,9 @@
+algorithm_id,condition,status,confidence,source_or_artifact,resolution_needed
+NM,high-dimensional simplex dynamics,PARTIAL,MEDIUM,"literature card",controlled dimension × geometry frontier
+BFGS,nonconvex curvature,PARTIAL,HIGH,"literature card",compare globalization/damping regimes
+LBFGS,nonsmooth objectives,DOCUMENTED,HIGH,"literature card",extend controlled mapping beyond known counterexample classes
+SA,finite-budget cooling tradeoff,PARTIAL,MEDIUM,"literature card",barrier × dimension × cooling experiment
+ACO,premature pheromone concentration,PARTIAL,MEDIUM,"literature card",state-indicator and remedy audit
+NSGA2,many-objective crowding-distance behavior,DOCUMENTED,HIGH,"literature card",diagnostic geometry map
+MOEAD,challenging Pareto-front geometry,PARTIAL,MEDIUM,"literature card",front-geometry × decomposition study
+NSGA3,challenging Pareto-front geometry,PARTIAL,MEDIUM,"literature card",front-geometry × reference-direction study
