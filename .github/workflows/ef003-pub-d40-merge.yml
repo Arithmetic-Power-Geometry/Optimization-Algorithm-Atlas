@@ -1,0 +1,47 @@
+name: EF003 PUB-D40 Merge Analysis
+on:
+  workflow_dispatch:
+  push:
+    paths: ['experiments/triggers/ef003-d40-merge.trigger']
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dawidd6/action-download-artifact@v6
+        with: {workflow: ef003-pub-d40-b01.yml, name: EF003-PUB-D40-B01, path: artifacts/ef003/D40/B01}
+      - uses: dawidd6/action-download-artifact@v6
+        with: {workflow: ef003-pub-d40-b02.yml, name: EF003-PUB-D40-B02, path: artifacts/ef003/D40/B02}
+      - uses: dawidd6/action-download-artifact@v6
+        with: {workflow: ef003-pub-d40-b03.yml, name: EF003-PUB-D40-B03, path: artifacts/ef003/D40/B03}
+      - uses: dawidd6/action-download-artifact@v6
+        with: {workflow: ef003-pub-d40-b04.yml, name: EF003-PUB-D40-B04, path: artifacts/ef003/D40/B04}
+      - name: Merge validate compare
+        run: |
+          python - <<'PY'
+          import csv,glob,statistics
+          from pathlib import Path
+          files=glob.glob("artifacts/ef003/D40/**/checkpoints.csv",recursive=True); assert len(files)==4,files
+          rows=[]
+          for f in files: rows+=list(csv.DictReader(open(f)))
+          assert len(rows)==3600
+          assert {r["freeze_id"] for r in rows}=={"EF003"}
+          assert {r["run_status"] for r in rows}=={"RUN_COMPLETE_UNVERIFIED"}
+          assert {r["paper_evidence"] for r in rows}=={"NO_UNTIL_PROMOTED"}
+          assert {int(r["function_id"]) for r in rows}==set(range(1,25))
+          assert {int(r["checkpoint"]) for r in rows}=={4000,12000,40000}
+          out=Path("artifacts/publication/EF003-PUB-D40");out.mkdir(parents=True,exist_ok=True)
+          cols=list(rows[0]);fh=open(out/"checkpoints.csv","w",newline="");w=csv.DictWriter(fh,fieldnames=cols);w.writeheader();w.writerows(rows);fh.close()
+          algs=["RandomSearch","SciPy-DE","SciPy-NelderMead","pycma-CMAES"]; cps=[4000,12000,40000];summ=[]
+          for a in algs:
+           for fn in range(1,25):
+            for cp in cps:
+             rr=[r for r in rows if r["algorithm"]==a and int(r["function_id"])==fn and int(r["checkpoint"])==cp and r["checkpoint_observed"]=="True" and r["best_at_checkpoint"] not in ("","None")]
+             vals=[float(r["best_at_checkpoint"]) for r in rr]
+             summ.append({"algorithm":a,"function_id":fn,"checkpoint":cp,"n":len(vals),"median_best":statistics.median(vals) if vals else "","cell_status":"OBSERVED" if vals else "UNOBSERVED","evidence_state":"RUN_COMPLETE_UNVERIFIED"})
+          assert len(summ)==288
+          fh=open(out/"function_checkpoint_summary.csv","w",newline="");w=csv.DictWriter(fh,fieldnames=list(summ[0]));w.writeheader();w.writerows(summ);fh.close()
+          print("EF003 D40 VALID",len(rows),len(summ),"unobserved",sum(x["cell_status"]=="UNOBSERVED" for x in summ))
+          PY
+      - uses: actions/upload-artifact@v4
+        with: {name: EF003-PUB-D40-MERGED-ANALYSIS, path: artifacts/publication/EF003-PUB-D40/}
