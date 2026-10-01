@@ -34,6 +34,8 @@ jobs:
           python-version: "3.12"
       - name: Validate evidence ledgers
         run: python scripts/validate_registry.py
+      - name: Validate BBOB core predeclaration
+        run: python scripts/validate_bbob_core_freeze.py
       - name: Validate statistical design draft
         run: python scripts/validate_statistical_freeze.py
       - name: Validate implementation candidate panel
