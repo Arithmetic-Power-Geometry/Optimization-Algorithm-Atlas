@@ -5,6 +5,11 @@ on:
       - "evidence/**"
       - "census/**"
       - "publication/**"
+      - "app/**"
+      - "app_pages/**"
+      - "app_utils/**"
+      - "streamlit_app.py"
+      - "requirements.txt"
       - "gap_registry/**"
       - "benchmarks/**"
       - "experiments/**"
@@ -29,6 +34,8 @@ jobs:
           python-version: "3.12"
       - name: Validate evidence ledgers
         run: python scripts/validate_registry.py
+      - name: Validate Streamlit app syntax
+        run: python -m py_compile streamlit_app.py app_pages/*.py app_utils/*.py
       - name: Validate pre-paper gate
         run: python scripts/validate_pre_paper_gate.py
       - name: Build pre-paper dashboard
