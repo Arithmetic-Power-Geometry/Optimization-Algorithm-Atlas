@@ -38,7 +38,7 @@ def pso(fn,lo,hi,d,budget,rng,npop=20,w=.7298,c1=1.49618,c2=1.49618):
     x=[[rng.uniform(lo,hi) for _ in range(d)] for _ in range(npop)]
     v=[[0.0]*d for _ in range(npop)]
     p=[z[:] for z in x]; pf=[fn(z) for z in x]; used=npop
-    g=p[min(range(npop),key=lambda i:pf[i])][:]
+    gi=min(range(npop),key=lambda i:pf[i]); g=p[gi][:]; gf=pf[gi]
     while used<budget:
         for i in range(npop):
             if used>=budget: break
@@ -48,7 +48,7 @@ def pso(fn,lo,hi,d,budget,rng,npop=20,w=.7298,c1=1.49618,c2=1.49618):
             f=fn(x[i]); used+=1
             if f<pf[i]:
                 p[i],pf[i]=x[i][:],f
-                if f<fn(g): g=x[i][:]
+                if f<gf: g=x[i][:]; gf=f
     return min(pf)
 
 ALGS={"RandomSearch":random_search,"DE":de,"PSO":pso}
