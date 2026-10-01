@@ -1,0 +1,2 @@
+design_id,status,suite,functions,dimensions,discovery_instances,confirmation_instances,seeds,budget_fe_per_d,algorithms,evidence_role
+R11-FF-001,PREDECLARED_NOT_RUN,BBOB,1-24,"5;10;20;40","1;2;3;4;5","6;7;8;9;10","11;23;37","100;300;1000","RandomSearch;SciPy-DE;SciPy-NelderMead;pycma-CMAES",HELD_OUT_CONFIRMATION
