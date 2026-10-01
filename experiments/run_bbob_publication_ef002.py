@@ -17,11 +17,11 @@ def main():
  inst=[int(x) for x in a.instances.split(",")];seeds=[int(x) for x in a.seeds.split(",")]
  MAX=1000*D;CPS=(100*D,300*D,1000*D)
  outdir=ROOT/"artifacts"/"publication"/a.label;outdir.mkdir(parents=True,exist_ok=True)
- observer_dir=outdir/"coco";observer_dir.mkdir(parents=True,exist_ok=True)
+ observer_name=f"{a.label}_COCO"; observer_dir=ROOT/"exdata"/observer_name
  rows=[]
  def getp(f,i):
   s=cocoex.Suite("bbob","",f"function_indices:{f} dimensions:{D} instance_indices:{i}")
-  obs=cocoex.Observer("bbob",f"result_folder: {observer_dir.resolve().as_posix()} algorithm_name: EF002")
+  obs=cocoex.Observer("bbob",f"result_folder: {observer_name} algorithm_name: EF002")
   p=s[0];p.observe_with(obs);return s,obs,p
  def finish(alg,f,i,seed,p,r,t,status):
   if r.evaluations!=p.evaluations:raise RuntimeError(f"{alg} counter mismatch {r.evaluations}!={p.evaluations}")
@@ -49,7 +49,7 @@ def main():
  cols=["run_label","experiment_id","freeze_id","algorithm","function_id","dimension","instance","seed","checkpoint","checkpoint_observed","best_at_checkpoint","final_recorder_evals","final_coco_evals","runtime_seconds","problem_id","coco_final_target_hit","termination_status","run_status","paper_evidence"]
  raw=outdir/"checkpoints.csv"
  with raw.open("w",newline="",encoding="utf-8") as fh:w=csv.writer(fh);w.writerow(cols);w.writerows(rows)
- files=sorted(str(p.relative_to(outdir)) for p in observer_dir.rglob("*") if p.is_file())
+ files=sorted(str(p.relative_to(ROOT)) for p in observer_dir.rglob("*") if p.is_file())
  prov={"label":a.label,"freeze_id":"EF002","dimension":D,"functions":[lo,hi],"instances":inst,"seeds":seeds,"rows":len(rows),"checkpoint_sha256":hashlib.sha256(raw.read_bytes()).hexdigest(),"coco_observer_files":files}
  (outdir/"provenance.json").write_text(json.dumps(prov,indent=2)+"\n")
  print(json.dumps(prov,indent=2))
