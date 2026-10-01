@@ -1,0 +1,6 @@
+freeze_id,status,path,git_blob_sha,purpose
+EF001,FROZEN,experiments/objective_recorder.py,1d9691441bab1eb0b45bb4905e53717e66302002,exact objective-call checkpoint recorder
+EF001,FROZEN,experiments/run_publication_engine_rehearsal.py,c3f6d8e50f9438d9c75b34e1df9506306f99ca83,validated final-style execution semantics
+EF001,FROZEN,experiments/bbob_core_freeze.csv,ffa4c7577c6ce381ed522deb80b9f7dcc042123a,predeclared BBOB core design
+EF001,FROZEN,requirements-benchmarks.txt,f2e1d312e56875d030e5df5b458511926434e7ae,pinned benchmark/comparator dependencies
+EF001,FROZEN,experiments/PUBLICATION_STATISTICAL_FREEZE.md,bd990cac72515f75dabdf4b1766b2f3bec907a71,pre-result statistical rules
