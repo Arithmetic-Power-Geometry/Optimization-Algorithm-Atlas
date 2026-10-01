@@ -7,3 +7,5 @@ paper_evidence=NO
 purpose=production-path validation before freeze and PUB-D5
 
 rerun=observer-lifecycle-correction
+
+rerun=explicit-observer-output-path
