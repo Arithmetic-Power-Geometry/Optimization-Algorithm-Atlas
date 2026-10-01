@@ -1,0 +1,33 @@
+name: EF003 R10 Cross-Dimensional Scaling
+on:
+  workflow_dispatch:
+  push:
+    paths: ['experiments/triggers/ef003-r10-scaling.trigger']
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dawidd6/action-download-artifact@v6
+        with: {workflow: ef003-pub-d5-merge.yml, name: EF003-PUB-D5-MERGED-ANALYSIS, path: artifacts/publication/EF003-PUB-D5}
+      - uses: dawidd6/action-download-artifact@v6
+        with: {workflow: ef003-pub-d10-merge.yml, name: EF003-PUB-D10-MERGED-ANALYSIS, path: artifacts/publication/EF003-PUB-D10}
+      - uses: dawidd6/action-download-artifact@v6
+        with: {workflow: ef003-pub-d20-merge.yml, name: EF003-PUB-D20-MERGED-ANALYSIS, path: artifacts/publication/EF003-PUB-D20}
+      - uses: dawidd6/action-download-artifact@v6
+        with: {workflow: ef003-pub-d40-merge.yml, name: EF003-PUB-D40-MERGED-ANALYSIS, path: artifacts/publication/EF003-PUB-D40}
+      - run: python experiments/build_ef003_cross_dimensional_scaling.py
+      - name: Validate
+        run: |
+          python - <<'PY'
+          import csv
+          r=list(csv.DictReader(open("artifacts/publication/EF003-CROSS-DIMENSIONAL/checkpoint_scaling_cells.csv")))
+          assert len(r)==1152
+          assert {x["freeze_id"] for x in r}=={"EF003"}
+          assert {int(x["dimension"]) for x in r}=={5,10,20,40}
+          assert {float(x["fe_per_dimension"]) for x in r}=={100.,300.,1000.}
+          assert {x["evidence_state"] for x in r}=={"RUN_COMPLETE_UNVERIFIED_DESCRIPTIVE_SCALING"}
+          print("EF003 R10 SCALING VALID",len(r))
+          PY
+      - uses: actions/upload-artifact@v4
+        with: {name: EF003-R10-CROSS-DIMENSIONAL-SCALING, path: artifacts/publication/EF003-CROSS-DIMENSIONAL/}
