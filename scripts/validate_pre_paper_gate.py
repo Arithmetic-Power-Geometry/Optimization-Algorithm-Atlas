@@ -5,7 +5,7 @@ ROOT=Path(__file__).resolve().parents[1]
 with (ROOT/"publication"/"PRE_PAPER_BACKLOG.csv").open(encoding="utf-8",newline="") as f:
     rows={r["id"]:r for r in csv.DictReader(f)}
 
-required=[f"P{i:03d}" for i in range(1,34)]
+required=[f"P{i:03d}" for i in range(1,35)]
 missing=[x for x in required if x not in rows]
 if missing:
     print("PRE-PAPER GATE INVALID: missing task IDs",missing)
