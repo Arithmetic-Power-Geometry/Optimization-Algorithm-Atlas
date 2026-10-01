@@ -34,6 +34,8 @@ jobs:
           python-version: "3.12"
       - name: Validate evidence ledgers
         run: python scripts/validate_registry.py
+      - name: Validate PUB-D2 batch plan
+        run: python scripts/validate_pub_d2_batches.py
       - name: Validate PUBBBOB001 shard plan
         run: python scripts/validate_publication_shards.py
       - name: Validate execution freeze EF001
