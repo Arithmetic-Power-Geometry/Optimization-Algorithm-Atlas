@@ -1,0 +1,36 @@
+name: R10 Cross-Dimensional Checkpoint Scaling
+on:
+  workflow_dispatch:
+  push:
+    paths: ['experiments/triggers/r10-cross-dimensional.trigger']
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dawidd6/action-download-artifact@v6
+        with: {workflow: pub-d5-analysis-ef002.yml, name: PUB-D5-ANALYSIS-EF002, path: artifacts/publication/PUB-D5}
+      - uses: dawidd6/action-download-artifact@v6
+        with: {workflow: pub-d10-analysis-ef002.yml, name: PUB-D10-ANALYSIS-EF002, path: artifacts/publication/PUB-D10}
+      - uses: dawidd6/action-download-artifact@v6
+        with: {workflow: pub-d20-merge-analysis-ef002.yml, name: PUB-D20-MERGED-ANALYSIS-EF002, path: artifacts/publication/PUB-D20}
+      - uses: dawidd6/action-download-artifact@v6
+        with: {workflow: pub-d40-merge-analysis-ef002.yml, name: PUB-D40-MERGED-ANALYSIS-EF002, path: artifacts/publication/PUB-D40}
+      - run: python experiments/build_cross_dimensional_checkpoint_scaling.py
+      - name: Validate
+        run: |
+          python - <<'PY'
+          import csv
+          from pathlib import Path
+          p=Path("artifacts/publication/CROSS-DIMENSIONAL/checkpoint_scaling_cells.csv")
+          r=list(csv.DictReader(p.open()))
+          assert len(r)==1152
+          assert {int(x["dimension"]) for x in r}=={5,10,20,40}
+          assert {float(x["fe_per_dimension"]) for x in r}=={100.,300.,1000.}
+          assert {int(x["function_id"]) for x in r}==set(range(1,25))
+          assert {x["algorithm"] for x in r}=={"RandomSearch","SciPy-DE","SciPy-NelderMead","pycma-CMAES"}
+          assert all(x["evidence_state"]=="DESCRIPTIVE_SCALING_NOT_TARGET_ECDF" for x in r)
+          print("R10 CHECKPOINT SCALING VALID",len(r),"cells")
+          PY
+      - uses: actions/upload-artifact@v4
+        with: {name: R10-CROSS-DIMENSIONAL-CHECKPOINT-SCALING, path: artifacts/publication/CROSS-DIMENSIONAL/}
