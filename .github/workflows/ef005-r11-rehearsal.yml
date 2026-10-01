@@ -1,0 +1,28 @@
+name: EF005 R11 Rehearsal
+on:
+  workflow_dispatch:
+  push:
+    paths: ['experiments/triggers/ef005-r11-rehearsal.trigger']
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install -r requirements-benchmarks.txt cocopp
+      - run: python experiments/run_r11_confirmation_ef005.py --dimension 5 --functions 1-1 --instances 6 --seeds 11 --label EF005-R11-REHEARSAL --mode rehearsal
+      - run: |
+          python - <<'PY'
+          import csv,json
+          from pathlib import Path
+          r=list(csv.DictReader(open("artifacts/publication/EF005-R11-REHEARSAL/checkpoints.csv")))
+          q=json.load(open("artifacts/publication/EF005-R11-REHEARSAL/provenance.json"))
+          assert len(r)==12 and {x["freeze_id"] for x in r}=={"EF005"}
+          assert {x["experiment_id"] for x in r}=={"R11-FF-001"}
+          assert {x["instance"] for x in r}=={"6"}
+          assert all(x["final_recorder_evals"]==x["final_coco_evals"] for x in r)
+          assert len(q["observer_folders"])==4
+          print("EF005 HELD-OUT REHEARSAL VALID")
+          PY
+      - run: python -m cocopp exdata/EF005-R11-REHEARSAL_RS_COCO exdata/EF005-R11-REHEARSAL_DE_COCO exdata/EF005-R11-REHEARSAL_CMAES_COCO exdata/EF005-R11-REHEARSAL_NelderMead_COCO
