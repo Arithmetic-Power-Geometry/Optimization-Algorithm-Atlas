@@ -1,0 +1,65 @@
+name: EF005 R11 Combined Confirmation
+on:
+  workflow_dispatch:
+  push:
+    paths: ['experiments/triggers/ef005-r11-combined.trigger']
+jobs:
+  combine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install -r requirements-benchmarks.txt cocopp
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef005-r11-confirmation.yml
+          workflow_conclusion: success
+          path: collected
+      - name: Validate held-out corpus
+        run: |
+          python - <<'PY'
+          import csv,json,shutil
+          from pathlib import Path
+          cps=list(Path("collected").rglob("checkpoints.csv")); prov=list(Path("collected").rglob("provenance.json"))
+          assert len(cps)==16,(len(cps),cps);assert len(prov)==16,len(prov)
+          total=0;roots=[];labels=set();dims=set();instances=set()
+          for p in cps:
+           r=list(csv.DictReader(p.open()));assert len(r)==900,(p,len(r));total+=len(r)
+           assert {x["freeze_id"] for x in r}=={"EF005"}
+           assert {x["experiment_id"] for x in r}=={"R11-FF-001"}
+           assert {x["run_status"] for x in r}=={"RUN_COMPLETE_UNVERIFIED"}
+           assert all(x["final_recorder_evals"]==x["final_coco_evals"] for x in r)
+           dims|={x["dimension"] for x in r};instances|={x["instance"] for x in r}
+          assert total==14400,total
+          assert dims=={"5","10","20","40"},dims
+          assert instances=={"6","7","8","9","10"},instances
+          for p in prov:
+           q=json.load(p.open())
+           for folder in q["observer_folders"]:
+            hits=[x for x in p.parent.parent.parent.rglob(folder) if x.is_dir()]
+            if not hits: hits=[x for x in Path("collected").rglob(folder) if x.is_dir()]
+            assert len(hits)>=1,(folder,hits)
+            if folder not in labels: labels.add(folder);roots.append(hits[0])
+          assert len(labels)==64,len(labels)
+          out=Path("combined_exdata");out.mkdir()
+          for p in roots: shutil.copytree(p,out/p.name)
+          Path("r11_roots.txt").write_text("\n".join(str(x) for x in sorted(out.iterdir()))+"\n")
+          print("R11 HELD-OUT CORPUS VALID",total,dims,instances,len(labels))
+          PY
+      - run: python -m cocopp $(cat r11_roots.txt)
+      - run: |
+          test -d ppdata
+          python - <<'PY'
+          from pathlib import Path
+          f=[x for x in Path("ppdata").rglob("*") if x.is_file()]
+          assert f
+          print("R11 COCO POSTPROCESS FILES",len(f))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: EF005-R11-COMBINED-CONFIRMATION
+          path: |
+            ppdata/
+            r11_roots.txt
