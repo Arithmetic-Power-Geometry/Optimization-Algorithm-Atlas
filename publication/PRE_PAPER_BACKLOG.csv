@@ -32,3 +32,4 @@ P030,artifact_audit,"Rebuild all publication artifacts from clean checkout","art
 P031,evidence_freeze,"Create versioned evidence freeze","publication/EVIDENCE_FREEZE.md",P030,"scope date sources results and checksums frozen",critical,blocked
 P032,paper,"Write CSR-first paper","publication/manuscript/","P031","all claims trace to frozen evidence/artifacts",critical,blocked
 P033,submission_audit,"Line-by-line claim/reference/figure/table consistency audit","publication/SUBMISSION_AUDIT.md",P032,"zero unresolved critical findings",critical,blocked
+P034,writing_standard,"Freeze academic terminology claim grammar and section logic","publication/ACADEMIC_WRITING_STANDARD.md; publication/SECTION_LOGIC.md",P001,"terminology glossary and claim-strength ladder aligned with section architecture",critical,complete
