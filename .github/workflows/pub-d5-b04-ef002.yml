@@ -1,0 +1,28 @@
+name: PUB-D5 B04 EF002
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'experiments/triggers/pub-d5-b04.trigger'
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements-benchmarks.txt
+      - run: python scripts/validate_execution_freeze.py
+      - run: python scripts/validate_pub_d5_batches.py
+      - name: Run PUB-D5 B04
+        run: python experiments/run_bbob_publication_ef002.py --dimension 5 --functions 19-24 --instances 1,2,3,4,5 --seeds 11,23,37 --label PUB-D5-B04
+      - name: Validate batch
+        run: python experiments/validate_ef002_batch.py --label PUB-D5-B04 --lo 19 --hi 24
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PUB-D5-B04-EF002
+          path: |
+            artifacts/publication/PUB-D5-B04/
+            exdata/PUB-D5-B04_COCO/
