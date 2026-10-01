@@ -34,6 +34,10 @@ jobs:
           python-version: "3.12"
       - name: Validate evidence ledgers
         run: python scripts/validate_registry.py
+      - name: Run pre-publication pilot
+        run: |
+          python experiments/validate_pilot.py
+          python experiments/summarize_pilot.py
       - name: Run deterministic calibration
         run: |
           python experiments/validate_calibration.py
@@ -62,6 +66,7 @@ jobs:
         run: python scripts/build_publication_dashboard.py
       - name: Show generated artifacts
         run: |
+          cat artifacts/validation/pilot_summary.md
           cat artifacts/validation/calibration_summary.md
           cat artifacts/tables/pre_paper_dashboard.md
           cat artifacts/tables/census_coverage.md
@@ -76,6 +81,9 @@ jobs:
         with:
           name: phase1-evidence-audit
           path: |
+            artifacts/validation/pilot_raw.csv
+            artifacts/validation/pilot_traces.csv
+            artifacts/validation/pilot_summary.md
             artifacts/validation/calibration_raw.csv
             artifacts/validation/calibration_summary.md
             artifacts/tables/pre_paper_dashboard.md
