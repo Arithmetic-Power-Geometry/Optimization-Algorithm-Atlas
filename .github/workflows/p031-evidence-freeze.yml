@@ -1,0 +1,14 @@
+name: P031 Evidence Freeze
+on:
+  workflow_dispatch:
+  push:
+    paths: ['experiments/triggers/p031-freeze.trigger']
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/validate_execution_freeze.py
+      - run: python scripts/validate_r13_literature.py
+      - run: python scripts/validate_r15_prefreeze.py
+      - run: python scripts/validate_p031_freeze.py
