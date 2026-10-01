@@ -1,0 +1,54 @@
+name: PUB-D2 Merge
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'experiments/triggers/pub-d2-merge.trigger'
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download B01
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: pub-d2-b01.yml
+          name: PUB-D2-B01-EF001
+          path: _b01
+      - name: Download B02
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: pub-d2-b02.yml
+          name: PUB-D2-B02-EF001
+          path: _b02
+      - name: Download B03
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: pub-d2-b03.yml
+          name: PUB-D2-B03-EF001
+          path: _b03
+      - name: Download B04
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: pub-d2-b04.yml
+          name: PUB-D2-B04-EF001
+          path: _b04
+      - name: Stage raw batches
+        run: |
+          mkdir -p artifacts/publication/PUB-D2
+          find _b01 -name D2-B01_raw.csv -exec cp {} artifacts/publication/PUB-D2/ \;
+          find _b02 -name D2-B02_raw.csv -exec cp {} artifacts/publication/PUB-D2/ \;
+          find _b03 -name D2-B03_raw.csv -exec cp {} artifacts/publication/PUB-D2/ \;
+          find _b04 -name D2-B04_raw.csv -exec cp {} artifacts/publication/PUB-D2/ \;
+      - name: Merge and validate
+        run: |
+          python experiments/merge_pub_d2.py
+          python experiments/validate_pub_d2_merged.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PUB-D2-MERGED-EF001
+          path: |
+            artifacts/publication/PUB-D2/PUB-D2_merged_raw.csv
+            artifacts/publication/PUB-D2/PUB-D2_merged_provenance.json
