@@ -1,0 +1,5 @@
+validation_id,status,function_id,function_label,property_question,dimensions,instances,budget_rule,algorithms,seeds
+BBOBVAL001,STANDARD_SUITE_VALIDATION,1,Sphere,"baseline smooth separable behavior","2;5;10","1;2;3","500*D","RandomSearch;DE;PSO","11;23;37"
+BBOBVAL001,STANDARD_SUITE_VALIDATION,5,LinearSlope,"ability to move toward domain boundary","2;5;10","1;2;3","500*D","RandomSearch;DE;PSO","11;23;37"
+BBOBVAL001,STANDARD_SUITE_VALIDATION,10,EllipsoidRotated,"rotation/non-separability under strong conditioning","2;5;10","1;2;3","500*D","RandomSearch;DE;PSO","11;23;37"
+BBOBVAL001,STANDARD_SUITE_VALIDATION,15,RastriginRotated,"multimodal non-separable behavior","2;5;10","1;2;3","500*D","RandomSearch;DE;PSO","11;23;37"
