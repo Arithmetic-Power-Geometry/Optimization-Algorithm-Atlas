@@ -1,0 +1,52 @@
+algorithm_id: ""
+canonical_name: ""
+aliases: []
+year: null
+family: ""
+original_reference:
+  title: ""
+  authors: []
+  venue: ""
+  doi: ""
+  url: ""
+implementation:
+  official_code: ""
+  independent_code: []
+mechanism:
+  representation: ""
+  initialization: ""
+  population_structure: ""
+  variation_operator: ""
+  information_sources: []
+  selection: ""
+  replacement: ""
+  memory: ""
+  adaptation: ""
+  restart_or_diversity: ""
+  constraint_handling: ""
+  gradient_information: ""
+  surrogate_use: ""
+  termination: ""
+theory:
+  guarantees: []
+  assumptions: []
+  complexity: ""
+  invariances: []
+evidence:
+  benchmark_suites: []
+  dimensions: []
+  budgets: []
+  number_of_runs: []
+  competitors: []
+  metrics: []
+  statistical_tests: []
+known_strengths: []
+known_limitations: []
+reported_structural_bias: ""
+reproducibility:
+  source_available: false
+  code_available: false
+  independently_reproduced: false
+  ambiguity_notes: []
+evidence_gaps: []
+sources: []
