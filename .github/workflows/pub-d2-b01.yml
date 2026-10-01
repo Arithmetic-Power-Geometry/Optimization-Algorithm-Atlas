@@ -27,10 +27,16 @@ jobs:
         run: python experiments/run_pub_d2_b01.py
       - name: Validate raw integrity
         run: python experiments/validate_pub_d2_b01.py
+      - name: Build descriptive audit
+        run: |
+          python experiments/summarize_pub_d2_b01.py
+          python experiments/validate_pub_d2_b01_summary.py
       - uses: actions/upload-artifact@v4
         with:
           name: PUB-D2-B01-EF001
           path: |
             artifacts/publication/PUB-D2/D2-B01_raw.csv
             artifacts/publication/PUB-D2/D2-B01_provenance.json
+            artifacts/publication/PUB-D2/D2-B01_descriptive_summary.csv
+            artifacts/publication/PUB-D2/D2-B01_termination_summary.csv
             artifacts/validation/environment.json
