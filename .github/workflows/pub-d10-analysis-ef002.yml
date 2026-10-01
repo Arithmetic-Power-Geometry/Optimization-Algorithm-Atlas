@@ -1,0 +1,28 @@
+name: PUB-D10 Analysis EF002
+on:
+  workflow_dispatch:
+  push:
+    paths: ['experiments/triggers/pub-d10-analysis.trigger']
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dawidd6/action-download-artifact@v6
+        with: {workflow: pub-d10-merge-ef002.yml, name: PUB-D10-MERGED-EF002, path: artifacts/publication/PUB-D10}
+      - run: python experiments/validate_pub_d10_merged.py
+      - run: python experiments/summarize_pub_d10.py
+      - name: Validate summary
+        run: |
+          python - <<'PY'
+          import csv
+          from pathlib import Path
+          r=list(csv.DictReader(Path("artifacts/publication/PUB-D10/PUB-D10_function_checkpoint_summary.csv").open()))
+          assert len(r)==288
+          assert {int(x["function_id"]) for x in r}==set(range(1,25))
+          assert {int(x["checkpoint"]) for x in r}=={1000,3000,10000}
+          assert {x["algorithm"] for x in r}=={"RandomSearch","SciPy-DE","SciPy-NelderMead","pycma-CMAES"}
+          print("PUB-D10 ANALYSIS VALID",len(r),"cells","unobserved",sum(x["cell_status"]=="UNOBSERVED" for x in r))
+          PY
+      - uses: actions/upload-artifact@v4
+        with: {name: PUB-D10-ANALYSIS-EF002, path: artifacts/publication/PUB-D10/}
