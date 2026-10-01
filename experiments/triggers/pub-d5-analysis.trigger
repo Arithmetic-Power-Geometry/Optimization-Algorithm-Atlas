@@ -4,3 +4,5 @@ expected_cells=288
 interpretation=within-function-within-checkpoint
 
 rerun=checkpoint-observed-field
+
+rerun=explicit-unobserved-cells
