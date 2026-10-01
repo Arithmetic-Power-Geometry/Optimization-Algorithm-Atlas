@@ -1,0 +1,52 @@
+\section{Researcher Decision Framework and Research Frontier}
+\label{sec:decision}
+
+\subsection{Begin with the problem, not the algorithm name}
+
+The atlas does not support a universal optimizer recommendation. A defensible selection begins by describing the decision problem: variable representation, derivative availability, dimensionality, evaluation cost, constraints, uncertainty or noise, temporal change, number of objectives, and available evaluation budget. These conditions determine which information an optimizer can exploit and which comparison is meaningful.
+
+The first decision is therefore an information decision. When reliable derivatives and appropriate smoothness are available, gradient or curvature information should not be discarded without reason. When derivatives are unavailable or unreliable, derivative-free mechanisms become relevant. Expensive objectives motivate sample-efficient or surrogate mechanisms; mixed, discrete, constrained, robust, dynamic, and multiobjective settings require mechanisms whose state and selection rules represent those structures.
+
+\subsection{Choose comparators by scientific role}
+
+Comparator selection should test an explanation rather than assemble a long list of names. A useful panel normally includes a transparent reference baseline, a mechanistically close comparator, an established method appropriate to the regime, and a specialist when the hypothesis concerns a particular problem structure. Competitors should be selected before outcomes are inspected.
+
+Mechanism fingerprints help identify the closest structural comparator. If a proposed contribution changes parameter memory in DE, comparison only with unrelated swarm algorithms would provide weak evidence about the claimed mechanism. Parent-versus-parent-plus-mechanism comparisons, together with established adaptive variants, are more informative. Conversely, a broad application study may require representatives from genuinely different mechanism classes.
+
+\subsection{Match benchmarks to the claim}
+
+Benchmark selection should follow the claimed problem properties. A scalability claim requires a dimension axis; a noise-robustness claim requires controlled noise; a constraint-handling claim requires varying constraint structure; and a mixed-variable claim cannot be established on continuous BBOB alone. Benchmark diversity is useful only when it measures the dimensions of the claim.
+
+The same principle limits aggregation. Continuous, noisy, discrete, dynamic, and multiobjective results should not be averaged into a universal score merely because all are optimization problems. Property-conditioned synthesis is preferable when the benchmark mapping and evidence density support it.
+
+\subsection{Treat budget and cost as separate design variables}
+
+Objective evaluations, wall-clock time, memory, communication, and optimizer-side computation measure different resources. Equal FE/D budgets are appropriate when objective evaluations dominate cost, but they do not make covariance adaptation, population operations, surrogate fitting, and random sampling computationally equivalent. Studies should therefore identify the resource constrained by the application and report secondary costs when they could change the practical conclusion.
+
+For stochastic comparisons, matched instances and multiple seeds remain important. Deterministic algorithms should not acquire artificial replication merely because stochastic competitors use several seeds. The statistical unit should follow the actual source of variation.
+
+\subsection{Use the evidence state to choose the next experiment}
+
+A documented condition may require replication or extension rather than rediscovery. A partial condition calls for an experiment that isolates the unresolved axis. Contradictory evidence calls for a design that reproduces the conditions under which the reports differ. An untested condition calls first for characterization, not a failure claim. Project-validated evidence can support a stronger conditional statement but remains bounded by the frozen protocol.
+
+This creates a practical decision rule: the next experiment should be the smallest experiment capable of changing the evidence state. Large benchmark campaigns are not automatically more informative if they do not resolve the uncertainty that motivated them.
+
+\subsection{Novelty checking at the mechanism level}
+
+A new name is insufficient evidence of algorithmic novelty. A novelty audit should identify the changed state representation, information source, proposal geometry, memory rule, selection rule, adaptation policy, constraint mechanism, or model. The closest prior mechanisms should then be compared directly.
+
+If the contribution is a transferable component, it is often more informative to test \(A\) versus \(A+M\) across multiple compatible parent algorithms than to package \(M\) immediately as an independent optimizer. Such a design tests whether the proposed mechanism, rather than unrelated implementation choices, explains the observed change.
+
+\subsection{Research frontier as unresolved evidence}
+
+The research frontier emerging from the atlas is not a ranked list of fashionable algorithms. It consists of unresolved evidence cells for which the missing observation can be stated precisely. Examples include controlled dimension--geometry mapping for simplex search, globalization-sensitive nonconvex curvature studies, barrier--dimension--cooling interactions in simulated annealing, pheromone-state diagnostics and remedy audits in ant-colony optimization, and geometry-conditioned studies of multiobjective selection mechanisms.
+
+Broader obligations remain in noisy, discrete, mixed-variable, dynamic, robust, learning-assisted, and real-world optimization. Their presence in the census does not imply adequate comparative evidence. These domains should be expanded through separately frozen protocols appropriate to their information structures rather than appended to continuous BBOB results for breadth.
+
+\subsection{Decision principle}
+
+The atlas ultimately supports a simple research principle:
+\begin{equation}
+\text{condition}\rightarrow\text{mechanism}\rightarrow\text{evidence}\rightarrow\text{experiment}\rightarrow\text{claim}.
+\end{equation}
+Reversing this order---starting from a desired algorithm or claim and then searching for favorable conditions---weakens both novelty and reproducibility. The framework is intended to keep algorithm choice, experimental design, and claim strength connected to the evidence that can actually support them.
