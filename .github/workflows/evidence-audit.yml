@@ -34,6 +34,10 @@ jobs:
           python-version: "3.12"
       - name: Validate evidence ledgers
         run: python scripts/validate_registry.py
+      - name: Run deterministic calibration
+        run: |
+          python experiments/validate_calibration.py
+          python experiments/summarize_calibration.py
       - name: Validate Streamlit app syntax
         run: python -m py_compile streamlit_app.py app_pages/*.py app_utils/*.py
       - name: Validate pre-paper gate
@@ -58,6 +62,7 @@ jobs:
         run: python scripts/build_publication_dashboard.py
       - name: Show generated artifacts
         run: |
+          cat artifacts/validation/calibration_summary.md
           cat artifacts/tables/pre_paper_dashboard.md
           cat artifacts/tables/census_coverage.md
           cat artifacts/tables/phase1_registry_summary.md
@@ -71,6 +76,8 @@ jobs:
         with:
           name: phase1-evidence-audit
           path: |
+            artifacts/validation/calibration_raw.csv
+            artifacts/validation/calibration_summary.md
             artifacts/tables/pre_paper_dashboard.md
             artifacts/tables/census_coverage.md
             artifacts/tables/phase1_registry_summary.md
