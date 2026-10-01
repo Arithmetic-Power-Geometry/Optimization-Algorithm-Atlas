@@ -1,0 +1,54 @@
+name: EF005 R11 Held-Out Confirmation
+on:
+  workflow_dispatch:
+  push:
+    paths: ['experiments/triggers/ef005-r11-confirmation.trigger']
+jobs:
+  matrix:
+    strategy:
+      fail-fast: false
+      matrix:
+        D: [5,10,20,40]
+        batch: [B01,B02,B03,B04]
+        include:
+          - batch: B01
+            lo: 1
+            hi: 6
+          - batch: B02
+            lo: 7
+            hi: 12
+          - batch: B03
+            lo: 13
+            hi: 18
+          - batch: B04
+            lo: 19
+            hi: 24
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install -r requirements-benchmarks.txt cocopp
+      - run: python scripts/validate_execution_freeze.py
+      - run: python experiments/run_r11_confirmation_ef005.py --dimension ${{ matrix.D }} --functions ${{ matrix.lo }}-${{ matrix.hi }} --instances 6,7,8,9,10 --seeds 11,23,37 --label EF005-R11-D${{ matrix.D }}-${{ matrix.batch }} --mode publication
+      - name: Validate held-out batch
+        run: |
+          python - <<'PY'
+          import csv,glob,json,os
+          cps=glob.glob("artifacts/publication/EF005-R11-*/checkpoints.csv");assert len(cps)==1,cps
+          r=list(csv.DictReader(open(cps[0])))
+          assert len(r)==900,len(r)
+          assert {x["freeze_id"] for x in r}=={"EF005"}
+          assert {x["experiment_id"] for x in r}=={"R11-FF-001"}
+          assert {x["instance"] for x in r}<={"6","7","8","9","10"} and {x["instance"] for x in r}
+          assert {x["run_status"] for x in r}=={"RUN_COMPLETE_UNVERIFIED"}
+          assert all(x["final_recorder_evals"]==x["final_coco_evals"] for x in r)
+          print("HELD-OUT BATCH VALID",len(r))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: EF005-R11-D${{ matrix.D }}-${{ matrix.batch }}
+          path: |
+            artifacts/publication/EF005-R11-D${{ matrix.D }}-${{ matrix.batch }}/
+            exdata/EF005-R11-D${{ matrix.D }}-${{ matrix.batch }}_*_COCO/
