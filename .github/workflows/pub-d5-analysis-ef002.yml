@@ -1,0 +1,35 @@
+name: PUB-D5 Analysis EF002
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'experiments/triggers/pub-d5-analysis.trigger'
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: pub-d5-merge-ef002.yml
+          name: PUB-D5-MERGED-EF002
+          path: artifacts/publication/PUB-D5
+      - run: python experiments/validate_pub_d5_merged.py
+      - run: python experiments/summarize_pub_d5.py
+      - name: Validate summary
+        run: |
+          python - <<'PY'
+          import csv
+          from pathlib import Path
+          p=Path("artifacts/publication/PUB-D5/PUB-D5_function_checkpoint_summary.csv")
+          r=list(csv.DictReader(p.open()))
+          assert len(r)==288, len(r)
+          assert {int(x["function_id"]) for x in r}==set(range(1,25))
+          assert {int(x["checkpoint"]) for x in r}=={500,1500,5000}
+          assert {x["algorithm"] for x in r}=={"RandomSearch","SciPy-DE","SciPy-NelderMead","pycma-CMAES"}
+          print("PUB-D5 ANALYSIS VALID",len(r),"cells")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PUB-D5-ANALYSIS-EF002
+          path: artifacts/publication/PUB-D5/
