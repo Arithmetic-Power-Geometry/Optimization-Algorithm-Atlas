@@ -10,7 +10,13 @@
 	\small \texttt{akakhtar.2024@gmail.com}}
 \begin{document}
 \maketitle
-% Abstract intentionally written after the evidence-based sections.
+\begin{abstract}
+Optimization research contains a large and rapidly evolving collection of methods whose names, mechanisms, theoretical guarantees, benchmark evidence, and reproducibility are often discussed at different levels. This paper develops an Optimization Algorithm Atlas that separates these layers and reconnects them through explicit provenance. A 90-entry cross-paradigm census is normalized into a representative mechanism layer containing 42 source-backed fingerprints linked to 46 verified source records. Evidence is indexed by algorithm and condition and classified as documented, partial, contradictory, untested, or project-validated, preventing absence of evidence from being interpreted as failure. The framework is coupled to an executable continuous black-box characterization using Random Search, differential evolution, Nelder--Mead, and CMA-ES on all 24 noiseless COCO BBOB functions across dimensions 5, 10, 20, and 40 under normalized evaluation budgets. Discovery and held-out instances, independent objective-call accounting, and COCO-authoritative target logging provide an auditable path from protocol to claim. The held-out campaign supports condition-level characterization but not a post hoc binary failure frontier because its exact reliability threshold was not frozen before confirmation. Consequently, no new optimizer is introduced. The resulting atlas provides a mechanism-first framework for evidence synthesis, comparator selection, benchmark design, novelty checking, reproducibility auditing, and explicit research evidence obligations.
+\end{abstract}
+
+\begin{IEEEkeywords}
+optimization algorithms, algorithm taxonomy, benchmarking, reproducibility, evidence synthesis, black-box optimization
+\end{IEEEkeywords}
 \input{sections/01_introduction}
 \input{sections/02_methods}
 \input{sections/03_taxonomy}
