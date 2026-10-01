@@ -9,7 +9,7 @@ R07,PUB-D10 execute merge compare,PASS_EF003
 R08,PUB-D20 execute merge compare,PASS_EF003
 R09,PUB-D40 execute merge compare,PASS_EF003
 R10,Cross-dimensional target ECDF scaling analysis,PASS_EF004
-R11,Failure-frontier discovery plus held-out confirmation,TODO
+R11,Failure-frontier discovery plus held-out confirmation,PASS_EF005_PIPELINE
 R12,Mechanism-remedy ablations if warranted,TODO
 R13,Literature evidence/fingerprint/source-ledger completion,TODO
 R14,App benchmark similarity reproducibility decision pages,PASS
