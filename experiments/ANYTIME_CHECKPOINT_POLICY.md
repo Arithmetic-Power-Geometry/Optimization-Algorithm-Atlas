@@ -11,3 +11,6 @@ Therefore:
 - separate reruns are allowed only if predeclared and are analyzed as separate stochastic trajectories.
 
 The engine smoke test currently validates Random Search and pycma CMA-ES. SciPy DE remains excluded from the nested-checkpoint engine until its generation/evaluation accounting is made checkpoint-safe.
+
+## Termination semantics
+The publication runner must distinguish an optimizer's native early termination from infrastructure failure. For the engine-accounting smoke test, the adapter is deliberately exercised to the hard evaluation cap so every checkpoint can be validated. In publication runs, native termination is retained and later checkpoints are recorded as terminated/no-additional-evaluation states rather than silently imputed.
