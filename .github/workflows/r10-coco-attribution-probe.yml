@@ -1,0 +1,31 @@
+name: R10 COCO Attribution Probe
+on:
+  workflow_dispatch:
+  push:
+    paths: ['experiments/triggers/r10-coco-attribution-probe.trigger']
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install -r requirements-benchmarks.txt cocopp
+      - run: python experiments/r10_coco_algorithm_attribution_probe.py
+      - name: Inspect and postprocess
+        run: |
+          find exdata -type f -maxdepth 4 -print
+          python - <<'PY'
+          from pathlib import Path
+          roots=[p for p in Path("exdata").iterdir() if p.is_dir() and p.name.startswith("R10-PROBE-")]
+          assert len(roots)==2,roots
+          for p in roots:
+           info=list(p.rglob("*.info")); dat=list(p.rglob("*.dat"))
+           assert info and dat,(p,info,dat)
+           txt="\n".join(x.read_text(errors="ignore") for x in info)
+           assert ("RS-A" in txt) or ("RS-B" in txt)
+          print("ALGORITHM-SEPARABLE COCO LOGS VALID",roots)
+          PY
+          python -m cocopp exdata/R10-PROBE-RS-A exdata/R10-PROBE-RS-B
+      - uses: actions/upload-artifact@v4
+        with: {name: R10-COCO-ATTRIBUTION-PROBE, path: 'exdata/'}
