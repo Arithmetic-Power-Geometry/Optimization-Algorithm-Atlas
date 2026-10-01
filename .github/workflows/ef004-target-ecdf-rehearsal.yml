@@ -1,0 +1,40 @@
+name: EF004 Target ECDF Rehearsal
+on:
+  workflow_dispatch:
+  push:
+    paths: ['experiments/triggers/ef004-rehearsal.trigger']
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install -r requirements-benchmarks.txt cocopp
+      - run: python experiments/run_bbob_target_ecdf_ef004.py --dimension 2 --functions 1-1 --instances 1 --seeds 11 --label EF004-REHEARSAL --mode rehearsal
+      - name: Validate
+        run: |
+          python - <<'PY'
+          import csv,json
+          from pathlib import Path
+          r=list(csv.DictReader(open("artifacts/publication/EF004-REHEARSAL/checkpoints.csv")))
+          assert len(r)==12,len(r)
+          assert {x["freeze_id"] for x in r}=={"EF004"}
+          assert all(x["final_recorder_evals"]==x["final_coco_evals"] for x in r)
+          q=json.load(open("artifacts/publication/EF004-REHEARSAL/provenance.json"))
+          assert len(q["observer_folders"])==4,q["observer_folders"]
+          assert q["parent_freeze"]=="EF003"
+          for folder in q["observer_folders"]:
+           p=Path("exdata")/folder
+           assert list(p.rglob("*.info")) and list(p.rglob("*.dat"))
+          print("EF004 REHEARSAL VALID",q["observer_folders"])
+          PY
+      - name: Official COCO postprocessing
+        run: python -m cocopp exdata/EF004-REHEARSAL_RS_COCO exdata/EF004-REHEARSAL_DE_COCO exdata/EF004-REHEARSAL_CMAES_COCO exdata/EF004-REHEARSAL_NelderMead_COCO
+      - uses: actions/upload-artifact@v4
+        with:
+          name: EF004-TARGET-ECDF-REHEARSAL
+          path: |
+            artifacts/publication/EF004-REHEARSAL/
+            exdata/EF004-REHEARSAL_*_COCO/
+            ppdata/
