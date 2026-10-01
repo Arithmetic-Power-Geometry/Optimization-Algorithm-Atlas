@@ -6,7 +6,7 @@ from target_recorder import TargetRecorder
 with (ROOT/"experiments"/"bbob_targets.csv").open(encoding="utf-8",newline="") as f:deltas=[float(x["delta_f"]) for x in csv.DictReader(f)]
 s=cocoex.Suite("bbob","","function_indices:1 dimensions:2 instance_indices:1");p=s[0]
 # COCO exposes the instance optimum through best_value in cocoex.
-fopt=float(p.best_value)
+fopt=float(p(p.best_parameter))\n# Reset the COCO evaluation counter by obtaining a fresh identical problem after reading f_opt.\np.free();s.free()\ns=cocoex.Suite("bbob","","function_indices:1 dimensions:2 instance_indices:1");p=s[0]
 r=TargetRecorder(p,[2,5,10],fopt,deltas)
 # Evaluate optimum if exposed; otherwise use the documented best parameter.
 x=list(p.best_parameter)
