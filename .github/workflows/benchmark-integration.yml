@@ -29,6 +29,10 @@ jobs:
         run: python scripts/capture_environment.py
       - name: Smoke test standard suites
         run: python benchmarks/smoke_standard_suites.py
+      - name: Run BBOB standard-suite validation
+        run: |
+          python experiments/validate_bbob_validation.py
+          python experiments/summarize_bbob_validation.py
       - name: Validate publication matrix
         run: python scripts/validate_publication_matrix.py
       - name: Upload integration evidence
@@ -38,3 +42,5 @@ jobs:
           path: |
             artifacts/validation/environment_snapshot.json
             artifacts/validation/standard_suite_smoke.json
+            artifacts/validation/bbob_validation_raw.csv
+            artifacts/validation/bbob_validation_summary.md
