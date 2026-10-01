@@ -1,0 +1,22 @@
+name: PUB-D40 B03 EF002
+on:
+  workflow_dispatch:
+  push:
+    paths: ['experiments/triggers/pub-d40-b03.trigger']
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install -r requirements-benchmarks.txt
+      - run: python scripts/validate_execution_freeze.py
+      - run: python experiments/run_bbob_publication_ef002.py --dimension 40 --functions 13-18 --instances 1,2,3,4,5 --seeds 11,23,37 --label PUB-D40-B03
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PUB-D40-B03-EF002
+          path: |
+            artifacts/publication/PUB-D40-B03/
+            exdata/PUB-D40-B03_COCO/
