@@ -35,12 +35,15 @@ jobs:
         run: python scripts/build_status_artifact.py
       - name: Generate closest-review matrix
         run: python scripts/build_closest_review_artifact.py
+      - name: Generate publication readiness dashboard
+        run: python scripts/build_publication_dashboard.py
       - name: Show generated artifacts
         run: |
           cat artifacts/tables/phase1_registry_summary.md
           cat artifacts/tables/candidate_gap_atlas.md
           cat artifacts/tables/evidence_status_matrix.md
           cat artifacts/tables/closest_review_matrix.md
+          cat artifacts/tables/publication_readiness.md
       - name: Upload evidence artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -50,3 +53,4 @@ jobs:
             artifacts/tables/candidate_gap_atlas.md
             artifacts/tables/evidence_status_matrix.md
             artifacts/tables/closest_review_matrix.md
+            artifacts/tables/publication_readiness.md
