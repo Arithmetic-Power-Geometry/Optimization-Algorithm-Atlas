@@ -17,7 +17,7 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-Optimization research contains a large and rapidly evolving collection of methods whose names, mechanisms, theoretical guarantees, benchmark evidence, and reproducibility are often discussed at different levels. This paper develops an Optimization Algorithm Atlas that separates these layers and reconnects them through explicit provenance. A 90-entry cross-paradigm census is normalized into a representative mechanism layer containing 42 source-backed fingerprints linked to 46 verified source records. Evidence is indexed by algorithm and condition and classified as documented, partial, contradictory, untested, or project-validated, preventing absence of evidence from being interpreted as failure. The framework is coupled to an executable continuous black-box characterization using Random Search, differential evolution, Nelder--Mead, and CMA-ES on all 24 noiseless COCO BBOB functions across dimensions 5, 10, 20, and 40 under normalized evaluation budgets. Discovery and held-out instances, independent objective-call accounting, and COCO-authoritative target logging provide an auditable path from protocol to claim. The held-out campaign supports condition-level characterization but not a post hoc binary failure frontier because its exact reliability threshold was not frozen before confirmation. Consequently, no new optimizer is introduced. The resulting atlas provides a mechanism-first framework for evidence synthesis, comparator selection, benchmark design, novelty checking, reproducibility auditing, and explicit research evidence obligations.
+Optimization research has expanded across mathematical programming, derivative-free search, evolutionary computation, swarm methods, surrogate optimization, multiobjective methods, and learning-assisted optimization, but evidence about these methods is often fragmented across incompatible levels of description. We present a mechanism-first framework that separates algorithm identity, computational structure, theoretical guarantees, empirical evidence, reproducibility, and unresolved questions before synthesis. The study combines a 90-entry cross-paradigm census with 42 source-backed mechanism fingerprints and a condition-level evidence model that distinguishes documented, partial, contradictory, untested, and project-validated states. To connect synthesis with executable evidence, we evaluate Random Search, differential evolution, Nelder--Mead, and CMA-ES on all 24 noiseless COCO BBOB functions across dimensions 5, 10, 20, and 40 under normalized evaluation budgets. Discovery and held-out campaigns produce 14,400 validated checkpoint rows each and algorithm-separated COCO target-runtime outputs. Official ECDF views show substantial condition dependence and no stable universal ordering across targets and problem classes. Because the exact numerical reliability threshold required for a binary failure frontier was not frozen before held-out evaluation, we report characterization rather than retrofit a frontier. The resulting methodology links mechanism, evidence, experiment design, and claim strength while preserving reproducibility and limiting overstatement.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -34,22 +34,7 @@ optimization algorithms, algorithm taxonomy, benchmarking, reproducibility, evid
 \input{sections/09_limitations}
 \input{sections/11_declarations}
 \input{sections/10_conclusion}
-
-\section*{Data and Code Availability}
-The research software, machine-readable evidence records, benchmark protocols, workflow definitions, and reproducibility materials are available at \url{https://github.com/Arithmetic-Power-Geometry/Optimization-Algorithm-Atlas}. The manuscript reports results obtained from the frozen software and workflow artifacts; the repository is not used as a manuscript-generation system.
-
-\section*{Funding}
-The authors received no external funding for this work.
-
-\section*{Competing Interests}
-The authors declare no competing interests.
-
-\section*{Ethics}
-Not applicable.
-
-\section*{Author Contributions}
-Mohammad Amir Khusru Akhtar: Conceptualization, methodology, software, validation, formal analysis, investigation, data curation, visualization, writing---original draft, writing---review and editing, and project administration. Anand Nayyar: writing---review and editing, and academic review.
-% Subsequent sections are drafted in frozen-evidence order.
+% References
 \bibliographystyle{IEEEtran}
 \bibliography{references}
 \end{document}
