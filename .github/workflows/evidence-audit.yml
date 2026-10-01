@@ -1,0 +1,35 @@
+name: Evidence Audit
+on:
+  push:
+    paths:
+      - "evidence/**"
+      - "schemas/**"
+      - "scripts/**"
+      - "agents/**"
+      - "protocol/**"
+      - ".github/workflows/evidence-audit.yml"
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate evidence ledgers
+        run: python scripts/validate_registry.py
+      - name: Generate Phase-1 summary
+        run: python scripts/build_phase1_report.py
+      - name: Show generated summary
+        run: cat artifacts/tables/phase1_registry_summary.md
+      - name: Upload generated audit artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase1-evidence-audit
+          path: artifacts/tables/phase1_registry_summary.md
