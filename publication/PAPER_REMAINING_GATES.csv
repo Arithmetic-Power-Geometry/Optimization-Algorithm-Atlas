@@ -8,7 +8,7 @@ R06,PUB-D5 execute merge compare,PASS_EF003
 R07,PUB-D10 execute merge compare,PASS_EF003
 R08,PUB-D20 execute merge compare,PASS_EF003
 R09,PUB-D40 execute merge compare,PASS_EF003
-R10,Cross-dimensional target ECDF scaling analysis,TODO
+R10,Cross-dimensional target ECDF scaling analysis,PASS_EF004
 R11,Failure-frontier discovery plus held-out confirmation,TODO
 R12,Mechanism-remedy ablations if warranted,TODO
 R13,Literature evidence/fingerprint/source-ledger completion,TODO
