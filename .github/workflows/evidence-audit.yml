@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - "evidence/**"
+      - "census/**"
+      - "publication/**"
       - "gap_registry/**"
       - "benchmarks/**"
       - "experiments/**"
