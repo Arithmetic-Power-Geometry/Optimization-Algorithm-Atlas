@@ -1,0 +1,30 @@
+cell_id: ""
+algorithm_id: ""
+algorithm_version_or_variant: ""
+mechanism_id: ""
+problem_properties:
+  dimension: ""
+  modality: ""
+  separability: ""
+  rotation: ""
+  conditioning: ""
+  noise: ""
+  constraints: ""
+  dynamics: ""
+  variable_type: ""
+budget:
+  objective_evaluations: ""
+  wall_clock: ""
+metric: ""
+status: "UNTESTED"
+confidence: "LOW"
+supporting_sources: []
+contradicting_sources: []
+implementation_ids: []
+reproducibility_status: ""
+documented_failure: false
+project_validated_failure: false
+failure_boundary: ""
+existing_remedies: []
+resolution_experiment_id: ""
+notes: ""
