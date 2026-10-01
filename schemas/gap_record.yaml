@@ -1,0 +1,22 @@
+gap_id: ""
+title: ""
+algorithm_or_family: []
+gap_type: ""
+status: "candidate"
+known_evidence: []
+missing_evidence: []
+contradictory_evidence: []
+why_it_matters: ""
+hypothesis: ""
+minimal_resolving_experiment:
+  benchmarks: []
+  competitors: []
+  conditions: []
+  dimensions: []
+  budgets: []
+  seeds: null
+  metrics: []
+expected_artifacts: []
+closest_prior_work: []
+novel_algorithm_required: "undetermined"
+resolution_notes: ""
