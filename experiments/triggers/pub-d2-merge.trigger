@@ -1,0 +1,5 @@
+PUB-D2 MERGE
+freeze=EF001
+batches=B01,B02,B03,B04
+expected_rows=3600
+status=RUN_COMPLETE_UNVERIFIED
