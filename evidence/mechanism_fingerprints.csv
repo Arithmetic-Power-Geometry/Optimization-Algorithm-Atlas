@@ -13,3 +13,10 @@ Hyperband,population,"objective;resource_progress",resource_allocation,archive,d
 BOHB,surrogate,"objective;resource_progress;density",resource_allocation,"archive;posterior",model_based,acquisition,uncertainty,none,mixed,single,0,density,asynchronous,"objective;surrogate_fit",model_misspecification,SRC-BOHB-001
 SMS-EMOA,population,"objective;pareto;hypervolume",neighborhood,archive,none,indicator,mutation,none,continuous,multi,0,none,population_parallel,"sorting;objective",diversity_collapse,SRC-SMSEMOA-001
 RVEA,population,"objective;pareto;reference_vector",neighborhood,population,deterministic_schedule,pareto,mutation,none,continuous,many,0,none,population_parallel,"sorting;objective",diversity_collapse,SRC-RVEA-001
+NM,single,objective,simplex,none,deterministic_schedule,greedy,none,none,continuous,single,0,local_linear,serial,objective,stagnation,SRC-NM-001
+LBFGS,single,"objective;gradient;curvature_history",coordinate,short_history,model_based,greedy,none,none,continuous,single,1,quadratic,serial,linear_algebra,curvature_failure,SRC-LBFGS-001
+SA,single,"objective;temperature",neighborhood,short_history,deterministic_schedule,probabilistic,none,none,mixed,single,0,none,serial,objective,stagnation,SRC-SA-001
+ACO,population,"objective;pheromone",neighborhood,"archive;pheromone",success_based,probabilistic,uncertainty,none,discrete,single,0,none,population_parallel,objective,stagnation,SRC-ACO-001
+NSGA2,population,"objective;pareto;rank",neighborhood,population,none,pareto,"mutation;niching",none,continuous,multi,0,none,population_parallel,"sorting;objective",diversity_collapse,SRC-NSGA2-001
+MOEAD,population,"objective;decomposition;neighborhood",neighborhood,population,none,greedy,"mutation;niching",none,continuous,multi,0,none,population_parallel,objective,diversity_collapse,SRC-MOEAD-001
+NSGA3,population,"objective;pareto;reference_point",neighborhood,population,none,pareto,"mutation;niching",none,continuous,many,0,none,population_parallel,"sorting;objective",diversity_collapse,SRC-NSGA3-001
