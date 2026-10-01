@@ -1,0 +1,42 @@
+name: EF004 R10 D10 B03
+on:
+  workflow_dispatch:
+  push:
+    paths: ['experiments/triggers/ef004-r10-d10-b03.trigger']
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install -r requirements-benchmarks.txt cocopp
+      - run: python scripts/validate_execution_freeze.py
+      - run: python experiments/run_bbob_target_ecdf_ef004.py --dimension 10 --functions 13-18 --instances 1,2,3,4,5 --seeds 11,23,37 --label EF004-R10-D10-B03 --mode publication
+      - name: Validate production artifact
+        run: |
+          python - <<'PY'
+          import csv,json
+          from pathlib import Path
+          base=Path("artifacts/publication/EF004-R10-D10-B03")
+          r=list(csv.DictReader(open(base/"checkpoints.csv")))
+          assert len(r)==900,len(r)
+          assert {x["freeze_id"] for x in r}=={"EF004"}
+          assert {x["run_status"] for x in r}=={"RUN_COMPLETE_UNVERIFIED"}
+          assert {x["paper_evidence"] for x in r}=={"NO_UNTIL_PROMOTED"}
+          assert all(x["final_recorder_evals"]==x["final_coco_evals"] for x in r)
+          q=json.load(open(base/"provenance.json")); assert len(q["observer_folders"])==4,q["observer_folders"]
+          for folder in q["observer_folders"]:
+           p=Path("exdata")/folder
+           assert list(p.rglob("*.info")) and list(p.rglob("*.dat"))
+          print("EF004 R10 D10 B03 VALID",len(r),q["observer_folders"])
+          PY
+      - name: COCO batch postprocess smoke
+        run: python -m cocopp exdata/EF004-R10-D10-B03_RS_COCO exdata/EF004-R10-D10-B03_DE_COCO exdata/EF004-R10-D10-B03_CMAES_COCO exdata/EF004-R10-D10-B03_NelderMead_COCO
+      - uses: actions/upload-artifact@v4
+        with:
+          name: EF004-R10-D10-B03
+          path: |
+            artifacts/publication/EF004-R10-D10-B03/
+            exdata/EF004-R10-D10-B03_*_COCO/
