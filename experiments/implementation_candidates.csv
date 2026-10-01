@@ -1,0 +1,7 @@
+algorithm,candidate,provenance,acceptance_state,reason
+CMA-ES,pycma,"CMA-ES project maintained Python implementation",CANDIDATE,"ask-and-tell supports strict external evaluation accounting; explicit bounds available"
+DE,SciPy differential_evolution,"SciPy maintained optimizer implementation",CANDIDATE_WITH_CONFIGURATION_AUDIT,"implementation is maintained but defaults define a specific DE configuration; polishing must be disabled for strict DE-only evaluation"
+PSO,PySwarms GlobalBestPSO,"documented research toolkit",HOLD_FOR_MAINTENANCE_AUDIT,"clear PSO API but documentation/release age requires maintenance and compatibility audit"
+Nelder-Mead,SciPy minimize(method=Nelder-Mead),"SciPy maintained optimizer implementation",CANDIDATE_WITH_BOUNDS_AUDIT,"classical direct-search comparator; bounds/initial simplex and stopping behavior must be frozen"
+GA,implementation not yet selected,"pending verification",PENDING,"select only after representation/operator/default provenance is defensible"
+RandomSearch,repository reference implementation,"Optimization Algorithm Atlas",VERIFIED_REFERENCE,"transparent reference baseline; not claimed as external canonical implementation"
