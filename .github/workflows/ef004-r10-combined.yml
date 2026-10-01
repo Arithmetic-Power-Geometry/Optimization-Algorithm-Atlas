@@ -1,0 +1,141 @@
+name: EF004 R10 Combined Target ECDF
+on:
+  workflow_dispatch:
+  push:
+    paths: ['experiments/triggers/ef004-r10-combined.trigger']
+jobs:
+  combine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install -r requirements-benchmarks.txt cocopp
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef004-r10-d5-b01.yml
+          name: EF004-R10-D5-B01
+          path: collected/D5/B01
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef004-r10-d5-b02.yml
+          name: EF004-R10-D5-B02
+          path: collected/D5/B02
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef004-r10-d5-b03.yml
+          name: EF004-R10-D5-B03
+          path: collected/D5/B03
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef004-r10-d5-b04.yml
+          name: EF004-R10-D5-B04
+          path: collected/D5/B04
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef004-r10-d10-b01.yml
+          name: EF004-R10-D10-B01
+          path: collected/D10/B01
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef004-r10-d10-b02.yml
+          name: EF004-R10-D10-B02
+          path: collected/D10/B02
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef004-r10-d10-b03.yml
+          name: EF004-R10-D10-B03
+          path: collected/D10/B03
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef004-r10-d10-b04.yml
+          name: EF004-R10-D10-B04
+          path: collected/D10/B04
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef004-r10-d20-b01.yml
+          name: EF004-R10-D20-B01
+          path: collected/D20/B01
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef004-r10-d20-b02.yml
+          name: EF004-R10-D20-B02
+          path: collected/D20/B02
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef004-r10-d20-b03.yml
+          name: EF004-R10-D20-B03
+          path: collected/D20/B03
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef004-r10-d20-b04.yml
+          name: EF004-R10-D20-B04
+          path: collected/D20/B04
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef004-r10-d40-b01.yml
+          name: EF004-R10-D40-B01
+          path: collected/D40/B01
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef004-r10-d40-b02.yml
+          name: EF004-R10-D40-B02
+          path: collected/D40/B02
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef004-r10-d40-b03.yml
+          name: EF004-R10-D40-B03
+          path: collected/D40/B03
+      - uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: ef004-r10-d40-b04.yml
+          name: EF004-R10-D40-B04
+          path: collected/D40/B04
+      - name: Validate all batches and assemble COCO roots
+        run: |
+          python - <<'PY'
+          import csv,json,shutil
+          from pathlib import Path
+          roots=[]; total=0; labels=[]
+          for D in [5,10,20,40]:
+           for B in ["B01","B02","B03","B04"]:
+            base=Path(f"collected/D{D}/{B}")
+            cps=list(base.rglob("checkpoints.csv")); prov=list(base.rglob("provenance.json"))
+            assert len(cps)==1,(D,B,cps);assert len(prov)==1,(D,B,prov)
+            r=list(csv.DictReader(cps[0].open()));q=json.load(prov[0].open())
+            assert len(r)==900,(D,B,len(r));total+=len(r)
+            assert {x["freeze_id"] for x in r}=={"EF004"}
+            assert {x["dimension"] for x in r}=={str(D)}
+            assert {x["run_status"] for x in r}=={"RUN_COMPLETE_UNVERIFIED"}
+            assert {x["paper_evidence"] for x in r}=={"NO_UNTIL_PROMOTED"}
+            assert all(x["final_recorder_evals"]==x["final_coco_evals"] for x in r)
+            for folder in q["observer_folders"]:
+             hits=[p for p in base.rglob(folder) if p.is_dir()]
+             assert len(hits)==1,(D,B,folder,hits)
+             roots.append(hits[0]);labels.append(folder)
+          assert total==14400,total
+          assert len(roots)==64 and len(set(labels))==64,(len(roots),len(set(labels)))
+          out=Path("combined_exdata");out.mkdir()
+          for p in roots: shutil.copytree(p,out/p.name)
+          Path("r10_roots.txt").write_text("\n".join(str(p) for p in sorted(out.iterdir()))+"\n")
+          print("R10 COMBINED INPUT VALID",total,"rows",len(roots),"COCO roots")
+          PY
+      - name: Official joint COCO postprocessing
+        run: python -m cocopp $(cat r10_roots.txt)
+      - name: Validate postprocessing
+        run: |
+          test -d ppdata
+          find ppdata -type f | head -20
+          python - <<'PY'
+          from pathlib import Path
+          files=[p for p in Path("ppdata").rglob("*") if p.is_file()]
+          assert files, "no cocopp output"
+          print("COCO POSTPROCESS OUTPUT FILES",len(files))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: EF004-R10-COMBINED-TARGET-ECDF
+          path: |
+            ppdata/
+            r10_roots.txt
