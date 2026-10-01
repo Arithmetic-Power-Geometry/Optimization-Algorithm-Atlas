@@ -23,8 +23,8 @@ for f in FUN:
 
  # CMA-ES: ask/tell batches; checkpoint records may occur after a batch crossing and preserve actual evaluation count.
  s,p=problem(f);es=cma.CMAEvolutionStrategy([3.0]*D,2.0,{"seed":SEED,"bounds":[-5,5],"verbose":-9,"verb_disp":0,"popsize":10,"maxfevals":CHECK[-1]});best=float("inf");t=time.perf_counter();cp=list(CHECK)
- while not es.stop() and p.evaluations<CHECK[-1]:
-  xs=es.ask()[:CHECK[-1]-p.evaluations]
+ while p.evaluations<CHECK[-1]:
+  # For accounting validation, disable early-stop semantics and exercise the adapter to the hard evaluation cap.\n  xs=es.ask()[:CHECK[-1]-p.evaluations]
   if not xs:break
   ys=[]
   for x in xs:
