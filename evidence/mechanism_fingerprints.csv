@@ -1,0 +1,15 @@
+algorithm_id,state_type,information_source,proposal_geometry,memory,adaptation,selection,diversity_control,constraint_handling,variable_scope,objective_scope,derivative_order,model_type,parallelism,dominant_overhead,primary_failure_signal,source_id
+DE,population,"objective;pairwise_difference",difference,population,deterministic_schedule,greedy,mutation,none,continuous,single,0,none,population_parallel,objective,diversity_collapse,SRC-DE-001
+JADE,population,"objective;pairwise_difference;rank",difference,"population;archive",success_based,greedy,"mutation;archive",none,continuous,single,0,none,population_parallel,objective,diversity_collapse,SRC-JADE-001
+SHADE,population,"objective;pairwise_difference;rank",difference,"population;archive;short_history",success_based,greedy,"mutation;archive",none,continuous,single,0,none,population_parallel,objective,diversity_collapse,SRC-SHADE-001
+LSHADE,population,"objective;pairwise_difference;rank",difference,"population;archive;short_history",success_based,greedy,"mutation;archive",none,continuous,single,0,none,population_parallel,objective,diversity_collapse,SRC-LSHADE-001
+jDE,population,"objective;pairwise_difference",difference,population,self_adaptive,greedy,mutation,none,continuous,single,0,none,population_parallel,objective,diversity_collapse,SRC-JDE-001
+SaDE,population,"objective;pairwise_difference;success_history",difference,"population;short_history",success_based,greedy,mutation,none,continuous,single,0,none,population_parallel,objective,diversity_collapse,SRC-SADE-001
+CMAES,distribution,"objective;rank",covariance,"trajectory;distribution",success_based,rank,restart,none,continuous,single,0,covariance,population_parallel,"covariance;objective",overhead_crossover,SRC-CMA-001
+CLPSO,population,"objective;personal_best",velocity,"personal_best;population",success_based,greedy,mutation,none,continuous,single,0,none,population_parallel,objective,diversity_collapse,SRC-CLPSO-001
+Adam,single,"gradient;moment_estimates",coordinate,short_history,model_based,greedy,none,none,continuous,single,1,none,batch,linear_algebra,stagnation,SRC-ADAM-001
+TuRBO,surrogate,"objective;posterior",trust_region,"posterior;archive",model_based,acquisition,uncertainty,none,continuous,single,0,GP,batch,"surrogate_fit;acquisition",model_misspecification,SRC-TURBO-001
+Hyperband,population,"objective;resource_progress",resource_allocation,archive,deterministic_schedule,rank,none,none,mixed,single,0,none,asynchronous,objective,stagnation,SRC-HYPERBAND-001
+BOHB,surrogate,"objective;resource_progress;density",resource_allocation,"archive;posterior",model_based,acquisition,uncertainty,none,mixed,single,0,density,asynchronous,"objective;surrogate_fit",model_misspecification,SRC-BOHB-001
+SMS-EMOA,population,"objective;pareto;hypervolume",neighborhood,archive,none,indicator,mutation,none,continuous,multi,0,none,population_parallel,"sorting;objective",diversity_collapse,SRC-SMSEMOA-001
+RVEA,population,"objective;pareto;reference_vector",neighborhood,population,deterministic_schedule,pareto,mutation,none,continuous,many,0,none,population_parallel,"sorting;objective",diversity_collapse,SRC-RVEA-001
