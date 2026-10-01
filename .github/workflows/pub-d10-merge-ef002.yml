@@ -1,0 +1,35 @@
+name: PUB-D10 Merge EF002
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'experiments/triggers/pub-d10-merge.trigger'
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download B01
+        uses: dawidd6/action-download-artifact@v6
+        with: {workflow: pub-d10-b01-ef002.yml, name: PUB-D10-B01-EF002, path: artifacts/publication/D10-DL/B01}
+      - name: Download B02
+        uses: dawidd6/action-download-artifact@v6
+        with: {workflow: pub-d10-b02-ef002.yml, name: PUB-D10-B02-EF002, path: artifacts/publication/D10-DL/B02}
+      - name: Download B03
+        uses: dawidd6/action-download-artifact@v6
+        with: {workflow: pub-d10-b03-ef002.yml, name: PUB-D10-B03-EF002, path: artifacts/publication/D10-DL/B03}
+      - name: Download B04
+        uses: dawidd6/action-download-artifact@v6
+        with: {workflow: pub-d10-b04-ef002.yml, name: PUB-D10-B04-EF002, path: artifacts/publication/D10-DL/B04}
+      - name: Stage
+        run: |
+          mkdir -p artifacts/publication/D10-STAGE
+          for B in B01 B02 B03 B04; do
+            L=PUB-D10-$B; mkdir -p artifacts/publication/D10-STAGE/$L
+            F=$(find artifacts/publication/D10-DL/$B -name checkpoints.csv | head -1); test -n "$F"
+            cp "$F" artifacts/publication/D10-STAGE/$L/checkpoints.csv
+          done
+      - run: python experiments/merge_pub_d10.py
+      - run: python experiments/validate_pub_d10_merged.py
+      - uses: actions/upload-artifact@v4
+        with: {name: PUB-D10-MERGED-EF002, path: artifacts/publication/PUB-D10/}
