@@ -1,50 +1,77 @@
 \section{Controlled Computational Characterization}
 \label{sec:computational}
 
-\subsection{Purpose of the computational study}
+\subsection{Experimental question}
 
-The computational component is not intended to identify a universally best optimizer. Its purpose is to demonstrate how the atlas protocol converts a heterogeneous optimization question into condition-indexed, reproducible evidence. Four deliberately different mechanisms are retained: uninformed random sampling, differential population variation, simplex-based derivative-free local search, and covariance-adaptive distribution search. Their behavior is evaluated under the same continuous black-box suite, matched problem conditions, and normalized objective-evaluation budgets.
+The computational study asks a narrower question than a conventional leaderboard: how does a mechanism-diverse set of optimizers behave across a controlled continuous black-box test space when problem identity, dimensionality, instance set, seed policy, and objective-evaluation budget are fixed in advance? The retained panel comprises Random Search, SciPy differential evolution (DE), bounded SciPy Nelder--Mead (NM), and pycma CMA-ES. These methods were chosen because their implementations and frozen configurations passed the publication acceptance path; the panel is intentionally smaller than the census.
 
-The resulting experiment should therefore be read as a controlled characterization of the frozen configurations, not as a complete comparison of their broader algorithm families. In particular, no conclusion about all differential-evolution, simplex, covariance-adaptation, or random-search variants follows from one implementation and parameterization.
+All 24 noiseless BBOB functions are evaluated at dimensions \(D\in\{5,10,20,40\}\). Discovery uses instances 1--5 and held-out characterization uses instances 6--10. Stochastic configurations use seeds 11, 23, and 37, with checkpoints at \(100D\), \(300D\), and \(1000D\) objective evaluations. ObjectiveRecorder counts were cross-checked against COCO evaluation counts.
 
-\subsection{Validated execution scale}
+\subsection{Discovery and held-out COCO evidence}
 
-The cross-dimensional publication campaign covers all 24 noiseless BBOB functions at dimensions \(D\in\{5,10,20,40\}\), with evaluation checkpoints at \(100D\), \(300D\), and \(1000D\). The corrected fixed-budget scaling product contains 1,152 dimension--algorithm--function--budget cells. This count is a condition-level summary product and is distinct from the underlying run-level observations.
+Figure~\ref{fig:coco_discovery_heldout} places the official COCO ECDF views for discovery and held-out runs side by side for the 20-D all-function aggregate. The two panels are generated directly by \texttt{cocopp} from EF004 and EF005 artifacts, respectively; they are not reconstructed manually.
 
-The EF004 production campaign adds algorithm-separated COCO target-runtime logging. Across its 16 production batches, combined validation accepted 14,400 checkpoint rows and 64 algorithm-labelled COCO result roots. ObjectiveRecorder counts agreed with COCO evaluation counts within the validated batches, and joint official \texttt{cocopp} postprocessing completed successfully. These checks establish the integrity of the measurement pipeline; they do not themselves imply a performance ordering.
+\begin{figure*}[H]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}
+\centering
+\includegraphics[width=\linewidth]{figures/ef004_20d_all.pdf}
+\caption{Discovery instances 1--5 (EF004).}
+\label{fig:coco_discovery}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+\centering
+\includegraphics[width=\linewidth]{figures/ef005_20d_all.pdf}
+\caption{Held-out instances 6--10 (EF005).}
+\label{fig:coco_heldout}
+\end{subfigure}
+\caption{Official COCO target-runtime ECDF views for the same four frozen configurations on all 24 noiseless BBOB functions at \(D=20\). The discovery and held-out panels are produced from disjoint instance sets under the same scientific configuration. The figure is used for condition-level characterization, not for a universal ranking or a post hoc binary failure boundary.}
+\label{fig:coco_discovery_heldout}
+\end{figure*}
 
-\subsection{Two complementary performance views}
+The principal empirical observation is not a single global winner. The relative separation among methods varies with target difficulty and problem class, and the held-out panel preserves the same broad heterogeneity seen during discovery rather than collapsing to a stable total ordering. This is precisely why the paper reports ECDF/target-runtime behavior together with condition metadata instead of reducing the campaign to one average rank.
 
-The characterization retains fixed-budget and target-runtime views because they answer different questions. Fixed-budget analysis asks how much objective improvement has been obtained after a declared number of evaluations. Target-runtime analysis asks how many evaluations are required to reach a declared target, with unreached targets retained as unsuccessful observations. A method can appear favorable under one view and less favorable under another without contradiction.
+\subsection{Validated scale of the campaign}
 
-For fixed-budget scaling, dimension and FE/D remain explicit axes. For target-runtime analysis, COCO's logger and postprocessing provide the benchmark-authoritative attainment semantics. The project does not reconstruct exact target runtimes from sparse checkpoints and does not infer hidden optimum values from undocumented COCO internals.
+Table~\ref{tab:campaign_scale} summarizes the promoted computational products. EF003 supplies fixed-budget cross-dimensional scaling; EF004 supplies algorithm-separated COCO target-runtime logging on discovery instances; EF005 repeats the target-runtime protocol on disjoint held-out instances.
 
-\subsection{Discovery and held-out characterization}
+\begin{table}[H]
+\centering
+\caption{Validated computational products used in the manuscript.}
+\label{tab:campaign_scale}
+\footnotesize
+\begin{tabular}{p{0.11\linewidth}p{0.21\linewidth}p{0.18\linewidth}p{0.35\linewidth}}
+\toprule
+Freeze & Instance role & Scale & Publication use \\
+\midrule
+EF003 & Discovery, 1--5 & 1,152 dimension--algorithm--function--budget cells & Descriptive fixed-budget scaling at 100D, 300D, and 1000D \\
+EF004 & Discovery, 1--5 & 14,400 checkpoint rows; 64 algorithm-labelled COCO roots & Official target-runtime/ECDF characterization \\
+EF005 & Held-out, 6--10 & 14,400 checkpoint rows; 64 algorithm-labelled COCO roots & Held-out target-runtime/ECDF characterization \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-The discovery campaign uses BBOB instances 1--5. EF005 repeats the frozen algorithms, dimensions, seeds, and budgets on disjoint instances 6--10. This separation prevents the same benchmark instances from serving simultaneously as the sole source of a discovered pattern and its held-out evaluation.
+Across EF004 and EF005, the combined validation logic required exact agreement between the final ObjectiveRecorder and COCO evaluation counts. Joint \texttt{cocopp} postprocessing completed for both campaigns. These checks do not establish algorithmic superiority; they establish that the performance views in Figure~\ref{fig:coco_discovery_heldout} are tied to validated evaluation accounting and algorithm-separated COCO roots.
 
-The held-out campaign is interpreted conservatively. It supports comparison of condition-level target-runtime and scaling behavior across a disjoint instance set. It is not used to create an exact reliability boundary after the results are known. The predeclared frontier protocol required an exact target subset and reliability threshold before confirmation; those numerical choices were not frozen before EF005 execution. Accordingly, no post hoc binary frontier is reported.
+\subsection{Fixed-budget and target-runtime views}
 
-\subsection{What the experiment establishes}
+The study retains two complementary views. Fixed-budget analysis asks what has been achieved after a declared number of evaluations. Target-runtime analysis asks how many evaluations are required to reach a declared target, with unreached targets retained as unsuccessful observations. A method can be comparatively strong under one view and weaker under another without contradiction.
 
-Four conclusions about the evidence process are project-validated independently of any algorithm ranking. First, cross-dimensional comparison can be executed with exact objective-call accounting under normalized FE/D budgets. Second, algorithm-separated COCO logging permits authoritative target-runtime postprocessing without conflating comparator identities. Third, discovery and held-out instance sets can be executed under the same frozen scientific configuration. Fourth, a valid experimental campaign can support a weaker characterization claim while failing to justify a stronger frontier claim when the latter's decision threshold was not completely predeclared.
+For target-runtime analysis, COCO's logger and postprocessing define the authoritative attainment semantics. Exact target runtimes are not reconstructed from sparse checkpoints, and private optimum values are not inferred from undocumented internals. For fixed-budget scaling, FE/D remains explicit so that the same nominal budget is not confused with equal wall-clock cost.
 
-These conclusions matter for optimization benchmarking because reproducibility is not only the ability to rerun code. It also requires that the semantic path from observations to claims be frozen sufficiently early. The EF004 and EF005 campaigns satisfy the execution and provenance requirements for condition-level characterization, while the interpretation audit deliberately limits the strength of the frontier claim.
+\subsection{Interpretation boundary}
 
-\subsection{Algorithm-level performance reporting}
+The held-out campaign was designed to prevent the discovery instances from serving as their own sole confirmation. However, the original failure-frontier protocol required an exact numerical reliability threshold and target subset to be frozen before the held-out results were inspected. Those numerical choices were not fully frozen before EF005 execution. We therefore do not retrofit a binary frontier after observing the confirmation data.
 
-Algorithm-level numerical comparisons are reported only through artifacts generated from the promoted EF004 and EF005 data. The official \texttt{cocopp} products provide target-runtime and ECDF-style views, while fixed-budget tables are generated from the validated checkpoint corpus. No values are manually transcribed from plots, and no aggregate rank is used as evidence of universal superiority.
+This restriction is scientifically consequential. The experiments support condition-level target-runtime and scaling characterization across the evaluated BBOB conditions; they do not support a universal failure boundary, a universal optimizer ranking, or a mechanism-repair claim derived solely from deterioration. R12 was therefore closed as \texttt{NOT\_WARRANTED}, and no new optimizer is introduced.
 
-The principal reporting unit is algorithm/configuration \(\times\) function \(\times\) dimension \(\times\) budget, with instance and seed variation retained in the underlying data. Main-text synthesis may group functions by documented BBOB properties only when the property mapping is authoritative and the within-group observations support the aggregation. Function-level products remain available for audit.
+\subsection{Cost and fairness}
 
-\subsection{Cost and fairness boundaries}
+Equal objective-evaluation budgets improve comparability but do not equalize computational cost. CMA-ES maintains covariance-related state, DE operates on a population, NM maintains simplex geometry, and Random Search has little optimizer-side state. Objective evaluations and optimizer overhead are therefore treated as different resources.
 
-Equal objective-evaluation budgets improve comparability but do not equalize computational cost. CMA-ES maintains covariance-related state; differential evolution operates on a population; Nelder--Mead maintains simplex geometry; and Random Search has comparatively little optimizer-side state. Wall-clock or optimizer overhead is therefore interpreted separately from objective-call efficiency.
+The comparator panel is similarly bounded. PSO and GA were not added merely to enlarge the experiment because their publication implementation/configuration provenance had not passed the same acceptance path when the panel was frozen. The paper favors fewer fully specified comparators over a broader but weaker comparison.
 
-Likewise, the comparator panel is intentionally small. PSO and GA were not added merely to make the experiment appear broader because their publication implementation and configuration provenance had not passed the same frozen acceptance path when the comparator panel was established. Fewer comparators with inspectable provenance are preferable to a larger panel with weaker specification.
+\subsection{Result synthesis}
 
-\subsection{No universal ranking}
-
-The experiment does not define an overall winner. Performance depends on function, dimension, budget, target precision, implementation, and configuration. Any descriptive rank or aggregate ECDF is therefore a summary of the evaluated distribution, not an intrinsic ordering of optimization algorithms.
-
-This interpretation is consistent with the mechanism-first atlas. The purpose of empirical comparison is to locate evidence within a condition space and relate observed behavior to mechanisms where justified. It is not to collapse heterogeneous conditions into a single score that erases the circumstances under which the observation was produced.
+The computational evidence supports three bounded conclusions. First, the same scientific configuration can be executed on disjoint discovery and held-out BBOB instances with exact objective-call accounting. Second, official COCO target-runtime products reveal substantial condition dependence, so a single aggregate rank would discard information central to interpretation. Third, the held-out campaign can validate a characterization claim while still being insufficient for a stronger threshold-dependent frontier claim. The empirical contribution is therefore not a new optimizer; it is an auditable demonstration of how claim strength changes when the experimental protocol is held fixed and the interpretation rule is enforced.
