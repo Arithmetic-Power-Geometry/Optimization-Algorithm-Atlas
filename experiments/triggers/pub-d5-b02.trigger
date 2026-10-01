@@ -5,3 +5,5 @@ dimension=5
 instances=1-5
 seeds=11;23;37
 paper_evidence=NO_UNTIL_PROMOTED
+
+rerun=corrected-freeze-ledger-hash
