@@ -27,6 +27,10 @@ jobs:
           python-version: "3.12"
       - name: Validate evidence ledgers
         run: python scripts/validate_registry.py
+      - name: Validate pre-paper gate
+        run: python scripts/validate_pre_paper_gate.py
+      - name: Build pre-paper dashboard
+        run: python scripts/build_pre_paper_dashboard.py
       - name: Validate optimization census
         run: python scripts/validate_census.py
       - name: Generate census coverage
@@ -43,6 +47,7 @@ jobs:
         run: python scripts/build_publication_dashboard.py
       - name: Show generated artifacts
         run: |
+          cat artifacts/tables/pre_paper_dashboard.md
           cat artifacts/tables/census_coverage.md
           cat artifacts/tables/phase1_registry_summary.md
           cat artifacts/tables/candidate_gap_atlas.md
@@ -54,6 +59,7 @@ jobs:
         with:
           name: phase1-evidence-audit
           path: |
+            artifacts/tables/pre_paper_dashboard.md
             artifacts/tables/census_coverage.md
             artifacts/tables/phase1_registry_summary.md
             artifacts/tables/candidate_gap_atlas.md
