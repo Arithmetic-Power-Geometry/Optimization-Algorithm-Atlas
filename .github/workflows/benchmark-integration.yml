@@ -33,6 +33,8 @@ jobs:
         run: python experiments/comparator_acceptance.py
       - name: Validate maintained comparator acceptance
         run: python scripts/validate_comparator_acceptance.py
+      - name: Run common maintained-comparator BBOB acceptance
+        run: python experiments/validate_common_bbob_acceptance.py
       - name: Run BBOB standard-suite validation
         run: |
           python experiments/validate_bbob_validation.py
@@ -46,6 +48,7 @@ jobs:
           path: |
             artifacts/validation/environment_snapshot.json
             artifacts/validation/comparator_acceptance.json
+            artifacts/validation/common_bbob_acceptance_raw.csv
             artifacts/validation/standard_suite_smoke.json
             artifacts/validation/bbob_validation_raw.csv
             artifacts/validation/bbob_validation_summary.md
