@@ -33,6 +33,8 @@ jobs:
         run: python experiments/comparator_acceptance.py
       - name: Validate maintained comparator acceptance
         run: python scripts/validate_comparator_acceptance.py
+      - name: Test TARGET001 recorder on real COCO
+        run: python experiments/test_target_recorder_coco.py
       - name: Run frozen DRY-D2 shard
         run: |
           python experiments/run_dry_d2_shard.py
