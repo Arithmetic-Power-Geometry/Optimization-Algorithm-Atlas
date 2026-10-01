@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the associated research record."
+title: "Optimization Algorithm Atlas"
+type: software
+authors:
+  - family-names: "Akhtar"
+    given-names: "Mohammad Amir Khusru"
+version: "V1"
+date-released: "2026"
+repository-code: "https://github.com/Arithmetic-Power-Geometry/Optimization-Algorithm-Atlas"
+license: "Apache-2.0"
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "Akhtar"
+      given-names: "Mohammad Amir Khusru"
+  title: "From Algorithm Names to Evidence: A Mechanism-First Framework for Reproducible Optimization Research"
+  year: 2026
+  version: "V1"
+  doi: "10.5281/zenodo.23085104"
+  url: "https://doi.org/10.5281/zenodo.23085104"

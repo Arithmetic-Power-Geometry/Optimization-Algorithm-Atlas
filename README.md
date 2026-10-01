@@ -1,95 +1,69 @@
 # Optimization Algorithm Atlas
 
-A reproducible research infrastructure for mapping optimization algorithms by mechanism, evidence, benchmark coverage, failure regimes, structural overlap, and unresolved research gaps.
+Research software, evidence registries, benchmark protocols, and frozen computational artifacts supporting the study **From Algorithm Names to Evidence: A Mechanism-First Framework for Reproducible Optimization Research**.
 
-## Research objective
+## Scope
 
-The project does **not** begin by proposing a new optimizer and does not treat optimization benchmarking as a leaderboard exercise. Its first objective is to establish a defensible evidence map of the optimization literature and then use controlled computational experiments to determine:
+The atlas represents optimization methods at two complementary levels:
 
-1. which mechanisms are genuinely distinct;
-2. which problem regimes have adequate evidence;
-3. where published evidence is contradictory, incomplete, or irreproducible;
-4. where algorithm performance changes qualitatively;
-5. which gaps justify new theory, a new transferable mechanism, or—only if warranted—a new algorithm.
+- a cross-paradigm census of **90 algorithm identities** for coverage and provenance;
+- **42 source-backed mechanism fingerprints** for comparison by computational structure rather than by name or metaphor.
 
-## Study sequence
+The fingerprint representation records state, information source, proposal geometry, memory, adaptation, selection, diversity control, constraint handling, derivative order, and model type. Evidence completeness is tracked separately from provenance so that missing evidence is not interpreted as algorithmic failure.
 
-```text
-systematic evidence mining
-        ↓
-algorithm registry
-        ↓
-mechanism-first taxonomy
-        ↓
-algorithm-specific evidence audits
-        ↓
-benchmark-suite audit
-        ↓
-structural-similarity analysis
-        ↓
-standardized reproducible experiments
-        ↓
-failure-frontier mapping
-        ↓
-gap registry
-        ↓
-gap-derived hypotheses
-        ↓
-optional new mechanism / algorithm
-        ↓
-ablation + fair comparison
-        ↓
-verified figures, tables, algorithms, and data
-        ↓
-paper
-```
+## Controlled computational characterization
 
-The paper is written only after the evidence and computational artifacts are complete.
+The frozen continuous black-box study evaluates:
 
-## Core principle
+- Random Search;
+- differential evolution;
+- Nelder--Mead;
+- CMA-ES.
 
-Different names or metaphors are not treated as evidence of algorithmic novelty. Algorithms are compared through their operators, information flow, state, memory, adaptation, selection pressure, variation mechanisms, constraint handling, and termination behavior.
+The computational campaign uses all **24 noiseless COCO BBOB functions** at dimensions **5, 10, 20, and 40**, with normalized objective-evaluation budgets of **100D, 300D, and 1000D**.
 
-## Planned evidence classes
+Discovery uses BBOB instances **1--5** and held-out characterization uses disjoint instances **6--10**. Objective-call accounting is recorded independently and cross-checked against COCO. Official `cocopp` outputs provide target-runtime and ECDF views.
 
-- classical and mathematical optimization
-- first- and second-order methods
-- derivative-free optimization
-- evolutionary computation
-- differential-evolution families
-- swarm intelligence
-- estimation-of-distribution methods
-- surrogate and Bayesian optimization
-- multiobjective and many-objective optimization
-- constrained optimization
-- robust and stochastic optimization
-- dynamic optimization
-- mixed-variable optimization
-- large-scale optimization
-- learning-assisted and adaptive optimization
+The promoted execution artifacts include:
 
-## Outputs
+- **EF003**: corrected fixed-budget cross-dimensional campaign;
+- **EF004**: algorithm-separated COCO target-runtime campaign on discovery instances;
+- **EF005**: held-out target-runtime campaign on instances 6--10;
+- **P031**: frozen evidence manifest.
 
-The repository will progressively generate:
+The fixed-budget product contains **1,152 algorithm-function-dimension-budget cells**. EF004 and EF005 each retain **14,400 validated checkpoint rows** and **64 algorithm-labelled COCO result roots**.
 
-- algorithm registry;
-- mechanism/DNA matrix;
-- historical and mechanism genealogy;
-- source-level evidence ledger;
-- benchmark coverage matrix;
-- structural-overlap network;
-- reproducibility audit;
-- algorithm × condition evidence map;
-- performance profiles and convergence diagnostics;
-- sensitivity and robustness analyses;
-- failure-frontier maps;
-- gap registry;
-- gap-to-experiment cards;
-- optional gap-derived algorithm/mechanism;
-- final publication-grade figures and tables.
+## Interpretation boundary
 
-## Repository status
+The computational evidence supports condition-level characterization under the declared BBOB settings. It does not establish a universal optimizer ranking.
 
-**Phase 1 — evidence mining and review protocol.**
+The exact numerical reliability threshold and target subset required for a confirmatory binary failure frontier were not fully frozen before held-out execution. Accordingly, the repository does not promote a post-hoc exact frontier or a mechanism-repair claim from those results.
 
-No manuscript is generated from this repository. The repository is the computational and evidentiary laboratory supporting the later paper.
+## Repository structure
+
+- `census/` — algorithm identity and coverage records
+- `evidence/` — source ledger, mechanism fingerprints, evidence records, and evidence cards
+- `benchmarks/` — benchmark-property mappings and adapter contracts
+- `experiments/` — frozen configurations, execution records, interpretation notes, and validation policies
+- `artifacts/` — generated research artifacts used for inspection and reproduction
+- `gap_registry/` — unresolved evidence conditions and resolving-study records
+- `protocol/` — review, statistical, similarity, status, and gap-validation protocols
+- `schemas/` — machine-readable record schemas
+- `scripts/` — reproducibility and validation utilities
+- `.github/workflows/` — executable benchmark and evidence-validation workflows
+
+## Reproducibility
+
+The repository preserves configuration, execution, validation, and interpretation boundaries needed to reproduce the reported computational characterization. Historical or superseded execution records are retained when they are necessary for provenance but are not promoted as scientific evidence.
+
+## Research record
+
+Akhtar, M. A. K. (2026). *From Algorithm Names to Evidence: A Mechanism-First Framework for Reproducible Optimization Research* (Version V1). Zenodo. https://doi.org/10.5281/zenodo.23085104
+
+## License
+
+Repository-authored software and documentation are licensed under the Apache License, Version 2.0, unless a file states otherwise.
+
+Copyright © 2026 Mohammad Amir Khusru Akhtar.
+
+The Zenodo research article and third-party materials retain their own stated rights and licenses.
