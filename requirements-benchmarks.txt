@@ -1,0 +1,3 @@
+# Publication benchmark stack — pinned 2026-10-01
+coco-experiment==2.8.2
+ioh==0.3.22
