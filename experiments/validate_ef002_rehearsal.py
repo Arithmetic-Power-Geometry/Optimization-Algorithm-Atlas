@@ -11,5 +11,5 @@ if any(r["freeze_id"]!="EF002" or r["paper_evidence"]!="NO" or r["run_status"]!=
 if any(int(r["final_recorder_evals"])!=int(r["final_coco_evals"]) for r in rows):raise SystemExit("recorder/COCO mismatch")
 if {int(r["checkpoint"]) for r in rows}!={200,600,2000}:raise SystemExit("checkpoint drift")
 p=json.load(prov.open())
-if not p["coco_observer_files"]:raise SystemExit("COCO observer produced no files")
+if not p["coco_observer_files"]:raise SystemExit("COCO observer produced no files")\nif not all(x.startswith("exdata/EF002-REHEARSAL_COCO/") for x in p["coco_observer_files"]):raise SystemExit("COCO observer layout drift")\nif not any(x.endswith(".info") for x in p["coco_observer_files"]):raise SystemExit("COCO .info missing")\nif not any(x.endswith(".tdat") for x in p["coco_observer_files"]):raise SystemExit("COCO target log missing")
 print("EF002 REHEARSAL VALID",len(rows),"rows",len(p["coco_observer_files"]),"COCO files")
