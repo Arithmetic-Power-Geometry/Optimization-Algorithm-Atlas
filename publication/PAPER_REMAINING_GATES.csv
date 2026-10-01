@@ -11,7 +11,7 @@ R09,PUB-D40 execute merge compare,PASS_EF003
 R10,Cross-dimensional target ECDF scaling analysis,PASS_EF004
 R11,Failure-frontier discovery plus held-out confirmation,PASS_EF005_PIPELINE
 R12,Mechanism-remedy ablations if warranted,TODO
-R13,Literature evidence/fingerprint/source-ledger completion,TODO
+R13,Literature evidence/fingerprint/source-ledger completion,PASS_REPRESENTATIVE_COVERAGE
 R14,App benchmark similarity reproducibility decision pages,PASS
 R15,Final statistics figures tables references clean replay,TODO
 R16,P031 evidence freeze release,TODO
