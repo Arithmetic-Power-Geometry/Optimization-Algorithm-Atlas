@@ -6,6 +6,7 @@ on:
     paths:
       - 'experiments/run_pub_d2_b01.py'
       - 'experiments/validate_pub_d2_b01.py'
+      - 'experiments/triggers/pub-d2-b01.trigger'
 
 jobs:
   run:
