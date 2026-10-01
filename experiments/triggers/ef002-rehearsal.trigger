@@ -11,3 +11,5 @@ rerun=observer-lifecycle-correction
 rerun=explicit-observer-output-path
 
 rerun=observed-exdata-layout
+
+rerun=validator-source-repair
