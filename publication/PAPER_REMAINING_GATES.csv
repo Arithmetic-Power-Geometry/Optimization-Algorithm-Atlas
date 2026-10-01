@@ -14,6 +14,6 @@ R12,Mechanism-remedy ablations if warranted,NOT_WARRANTED
 R13,Literature evidence/fingerprint/source-ledger completion,PASS_REPRESENTATIVE_COVERAGE
 R14,App benchmark similarity reproducibility decision pages,PASS
 R15,Final statistics figures tables references clean replay,PASS_PREFREEZE_AUDIT
-R16,P031 evidence freeze release,TODO
-R17,Paper drafting in frozen official venue template,TODO
+R16,P031 evidence freeze release,PASS
+R17,Paper drafting in frozen official venue template,READY
 R18,Line-by-line submission audit and final package,TODO
