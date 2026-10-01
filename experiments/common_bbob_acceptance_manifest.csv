@@ -1,0 +1,2 @@
+test_id,status,functions,dimensions,instances,seeds,budget_rule,algorithms,paper_evidence
+CBACC001,ACCEPTANCE_ONLY,"1;10;15","2;5","1;2","11;23","300*D","RandomSearch;SciPy-DE;SciPy-NelderMead;pycma-CMAES",NO
