@@ -1,0 +1,6 @@
+journal,role,scope_fit_for_full_atlas,review_article_fit,cross_paradigm_fit,main_risk,planned_framing
+Computer Science Review,primary,high,very-high,high,"recent optimization reviews create a high novelty bar","mechanism-condition-evidence atlas and open-problem synthesis"
+Swarm and Evolutionary Computation,secondary,medium,high,medium,"full atlas extends beyond swarm/evolutionary scope","narrow evolutionary/swarm version if evidence warrants"
+Artificial Intelligence Review,secondary,high,very-high,medium-high,"must retain clear AI/computational-intelligence relevance","critical evaluation of optimization algorithms and evidence"
+Information Sciences,secondary,high,medium,high,"survey contributions are a smaller part of journal output","theory-practice evidence synthesis with original computational validation"
+Applied Soft Computing,secondary,medium-high,medium,medium,"application/soft-computing emphasis may underfit classical optimization coverage","soft-computing-centered evidence atlas"
