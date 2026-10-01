@@ -16,3 +16,9 @@ def load_status(): return _csv("evidence/status_matrix.csv")
 def load_gaps():
     p=ROOT/"gap_registry"/"CROSS_FAMILY_GAPS.csv"
     return pd.read_csv(p).fillna("") if p.exists() else pd.DataFrame()
+
+def load_suite_registry(): return _csv("benchmarks/suite_registry.csv")
+def load_publication_design(): return _csv("experiments/publication_design.csv")
+def load_freezes(): return _csv("experiments/execution_freeze.csv")
+def load_gates(): return _csv("publication/PAPER_REMAINING_GATES.csv")
+def load_comparator_rules(): return _csv("evidence/comparator_rules.csv")
