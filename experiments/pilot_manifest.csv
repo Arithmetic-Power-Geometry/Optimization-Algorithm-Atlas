@@ -1,0 +1,2 @@
+experiment_id,status,algorithms,functions,dimensions,budgets,seeds,checkpoints,targets,purpose
+PIL001,PILOT_ONLY,"RandomSearch;DE;PSO","Sphere;Rastrigin;Rosenbrock","2;10","500;2000;5000","11;23;37;53;71","100;500;1000;2000;5000","1e-2;1e-6","validate anytime traces budget scaling and target-hit schema"
