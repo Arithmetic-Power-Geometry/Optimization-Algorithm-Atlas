@@ -1,0 +1,4 @@
+test_id,algorithm,implementation,configuration,status,paper_evidence
+CA001,DE,SciPy differential_evolution,"best1bin; popsize=10; F=0.5; CR=0.9; polish=false; workers=1; immediate update",ACCEPTANCE_ONLY,NO
+CA002,Nelder-Mead,SciPy minimize,"bounded; adaptive=false; hard max objective calls",ACCEPTANCE_ONLY,NO
+CA003,CMA-ES,pycma,"ask/tell; popsize=10; bounded; adapter-owned objective budget",ACCEPTANCE_ONLY,NO
