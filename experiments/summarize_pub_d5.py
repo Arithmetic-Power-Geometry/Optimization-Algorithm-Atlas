@@ -5,7 +5,7 @@ ROOT=Path(__file__).resolve().parents[1];src=ROOT/"artifacts"/"publication"/"PUB
 rows=list(csv.DictReader(src.open(encoding="utf-8",newline="")))
 g=defaultdict(list)
 for r in rows:
- if r["observed"].lower() in {"true","1","yes"}:
+ if r["checkpoint_observed"].lower() in {"true","1","yes"}:
   g[(r["algorithm"],int(r["function_id"]),int(r["checkpoint"]))].append(float(r["best_at_checkpoint"]))
 p=out/"PUB-D5_function_checkpoint_summary.csv"
 with p.open("w",encoding="utf-8",newline="") as f:
